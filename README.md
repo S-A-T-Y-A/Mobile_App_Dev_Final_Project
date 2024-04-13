@@ -1,4 +1,4 @@
-# SkillComrade
+# Skill Comrade
 
 ## Proposal:
 
