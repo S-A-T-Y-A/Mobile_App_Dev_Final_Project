@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.team3.skill_comrade"
+    namespace = "com.team3.wellness_buddy"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.team3.skill_comrade"
+        applicationId = "com.team3.wellness_buddy"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

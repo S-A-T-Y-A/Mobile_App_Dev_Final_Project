@@ -1,4 +1,4 @@
-package com.team3.skill_comrade
+package com.team3.wellness_buddy
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.team3.skill_comrade
+package com.team3.wellness_buddy
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.team3.skill_comrade", appContext.packageName)
+        assertEquals("com.team3.wellness_buddy", appContext.packageName)
     }
 }
