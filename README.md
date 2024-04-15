@@ -9,7 +9,7 @@ Our Wellness Buddy app is designed to empower users facing health challenges by 
 
 <table style="border-collapse: collapse; border: none;">
 <tr align="center" style="border-collapse: collapse; border: none;">
-<td style="border:none">Koundinya Pidaparthy</td>
+<td style="border-collapse: collapse; border:none">Koundinya Pidaparthy</td>
 <td style="border:none">Satya Nandan Thota</td>
 <td style="border:none">Sri Ramgopal Tandra</td>
 </tr>
