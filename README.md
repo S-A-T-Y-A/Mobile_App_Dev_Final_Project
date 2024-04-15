@@ -1,4 +1,7 @@
-# Wellness Buddy
+
+<div style="display:flex"><span style="margin-right:20px"><img src="./images/wb_logo.png"  width="100px"></img></span> <h1>Wellness Buddy</h1></div>
+
+ 
 
 ### Overview
 <p style="text-align:justify">
