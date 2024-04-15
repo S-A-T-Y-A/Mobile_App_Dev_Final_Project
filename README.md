@@ -1,5 +1,5 @@
-# Skill Comrade
+# Wellness-Buddy
 
 ## Proposal:
 
-#### Imagine an app called "SkillComrade" that connects people based on skills and location. You create a profile highlighting your skills (e.g., coding, graphic design, photography). When you search, SkillShare uses GPS to find others with similar skills nearby. You'll see profiles with contact information (if users choose to share it) allowing you to connect via call or email for collaboration, mentorship, or even friendship. This app fosters a local community around shared skills. Need help with coding? Find someone nearby! Want to share your photography expertise? SkillShare connects you! It creates a platform for knowledge exchange, collaboration, and building a network based on what you can do.
+Our Wellness Buddy app is designed to empower users facing health challenges by allowing them to choose their specific health conditions or goals. Users can select their category of problem and connect directly with a Health Coach, who might be a certified professional or a recently studying student specializing in their area of concern. We aim to support users on their wellness journey, helping them take control of their health and improve their overall wellbeing. Our mission is to make professional and student wellness guidance accessible, convenient, and effective for everyone.
