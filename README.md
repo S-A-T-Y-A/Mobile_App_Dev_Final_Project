@@ -15,13 +15,13 @@ Our Wellness Buddy app is designed to empower users facing health challenges by 
 </tr>
 <tr align="center">
 <td style="border:none"><a href="https://github.com/koundinyapidaparthy2" style="text-decoration: none;">
-    <img src="./images/KP.jpg" style="border-radius:20px" height=200px alt="KP"></img>
+    <img src="./images/KP.jpg"  height=200px alt="KP"></img>
   </a></td>
 <td style="border:none"><a href="https://github.com/S-A-T-Y-A" style="text-decoration: none;">
-    <img src="./images/Satya.jpg" style="border-radius:20px"  height=200px alt="satya">
+    <img src="./images/sn.jpg"  height=200px alt="satya">
   </a></td>
 <td style="border:none"><a href="https://github.com/SR-Naidu" style="text-decoration: none;">
-    <img src="./images/sri.jpg" style="border-radius:20px"  height=200px alt="sri"></img>
+    <img src="./images/sri.jpg"   height=200px alt="sri"></img>
   </a></td>
 </tr>
 </table>
