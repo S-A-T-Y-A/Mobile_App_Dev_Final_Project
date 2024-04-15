@@ -1,4 +1,4 @@
-package com.team3.skill_comrade.ui.theme
+package com.team3.wellness_buddy.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
