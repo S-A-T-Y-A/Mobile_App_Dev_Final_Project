@@ -66,4 +66,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Exoplayer library
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+
+
+    //Jetpack dependencies
+    implementation ("androidx.activity:activity-compose:1.4.0")
+    implementation ("androidx.compose.ui:ui:1.1.0-alpha06")
+    implementation ("androidx.compose.material:material:1.1.0-alpha06")
 }
