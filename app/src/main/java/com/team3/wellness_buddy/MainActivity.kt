@@ -8,7 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-
+import com.team3.wellness_buddy.usersList.UsersListPage
 
 
 class MainActivity : ComponentActivity() {
@@ -16,9 +16,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 //            val vedioUri= Uri.parse("android.resource://com.team3.wellness_buddy/raw/logo_pulse");
-            FlashScreen()
+//            FlashScreen()
 
-            Login()
+//            Login()
+            UsersListPage()
 
         }
     }
