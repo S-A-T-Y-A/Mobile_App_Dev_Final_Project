@@ -1,4 +1,9 @@
-<div style="display:flex"><span style="margin-right:20px"><img src="./images/wb_logo.png"  width="100px"></img></span> <h1>Wellness Buddy</h1></div>
+<div style="display:flex">
+  <span style="margin-right:20px">
+    <img src="./images/wb_logo.png"  width="100px" />
+  </span> 
+  <h1>Wellness Buddy</h1>
+</div>
 
 ### Overview
 
@@ -58,9 +63,7 @@ So the specific health conditions users face on a yearly basis are going to be t
 - **Y**: Coaches (certified or students learning in the respective field)
 - **X**: Users facing the mentioned health conditions.
 
-<p style="text-align:justify">
-Users (X) can reach out to coaches (Y) through our platform.
-</p>
+<p style="text-align:justify"> Users (X) can reach out to coaches (Y) through our platform. </p>
 
 ### Conclusion:
 
