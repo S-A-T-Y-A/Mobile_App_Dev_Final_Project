@@ -1,11 +1,71 @@
-
 <div style="display:flex"><span style="margin-right:20px"><img src="./images/wb_logo.png"  width="100px"></img></span> <h1>Wellness Buddy</h1></div>
 
- 
-
 ### Overview
+
 <p style="text-align:justify">
-Our Wellness Buddy app is designed to empower users facing health challenges by allowing them to choose their specific health conditions or goals. Users can select their category of problem and connect directly with a Health Coach, who might be a certified professional or a recently studying student specializing in their area of concern. We aim to support users on their wellness journey, helping them take control of their health and improve their overall wellbeing. Our mission is to make professional and student wellness guidance accessible, convenient, and effective for everyone.
+Our Wellness Buddy application is implemented to educate users with health problems in that way that they can choose their health conditions or their main goals. Users can choose their problem and make a direct connection with a Health Coach, which may be a certified professional or a just graduated student who is a specialist in their field of interest. Our focus is to keep users with us on their health journey where they regain their health control and have better wellbeing. Our goal is to provide everyone with affordable, reliable, and efficient career/student counseling services.
+</p>
+
+### Key Features
+
+#### 1. User Profile Creation:
+
+- Personalized user profiles
+
+#### 2. Wellness Buddy Matching:
+
+- Depend upon the health condition which user choose we will provide direct connection with coaches ( Certified or student studying in that profession )
+
+#### 3. In-App Messaging and Communication:
+
+- Users can chat with their coaches securely and privately.
+
+#### 4. Contact Us Page:
+
+- For any help or guidance users / coaches can reach out to help desk throughout the form
+
+#### 5. About Us Page:
+
+- We are going to provide the basic information about the application. For example, what does this application do?
+
+#### 6. Feedback and Rating System:
+
+- In the application itself users can rate their coaches ( Certified or student studying in that profession ) who connected with them.
+
+### Future Works
+
+#### 1. Appointment Scheduling:
+
+- Users can schedule an appointment with .coaches so that they can understand more about coach and vice versa
+
+### Targeted Audience:
+
+<p style="text-align:justify">
+So the specific health conditions users face on a yearly basis are going to be treated or given guidance by these health coaches.
+</p>
+
+#### Specific health conditions, Example:
+
+- ENT Issues (Cough, cold, headache, sleep apnea, ear pain)
+- Orthotic Issues (Joint Pains, Back/Spine Pain, Foot and Ankle Problems, Hand/Wrist Problems)
+- Gastro issues (ulcers)
+- Dermato issues (blackheads, pimples, acne, dry skin, rashes)
+- Neuro (Weakness, Facial Pain, Fatigue, Cramps)
+- ... and more
+
+#### User Types
+
+- **Y**: Coaches (certified or students learning in the respective field)
+- **X**: Users facing the mentioned health conditions.
+
+<p style="text-align:justify">
+Users (X) can reach out to coaches (Y) through our platform.
+</p>
+
+### Conclusion:
+
+<p style="text-align:justify">
+The Wellness Buddy app implements a user-oriented platform that promotes individuals to find access to either certified advisors or student advisors. Features like the direct communication, and the feedback system from users are the strategies the app uses to help in the wellness journey of the users. The aim of our organization is to provide everybody with professional and student wellness services that are quick and easy to use and help people be more confident with their health and successfully attain their wellness targets.
 </p>
 
 ### Contributers
