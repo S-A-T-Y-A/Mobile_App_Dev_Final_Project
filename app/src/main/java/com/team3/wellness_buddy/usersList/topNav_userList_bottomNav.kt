@@ -59,20 +59,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 
 import com.team3.wellness_buddy.R
+import com.team3.wellness_buddy.getWindowStatusBarHeight
 
 @Composable
 fun getTopNavHeight(): Dp {
     return getWindowStatusBarHeight() + 55.dp
 }
 
-@Composable
-fun getWindowStatusBarHeight():Dp{
-    val statusBarHeight = getStatusBarHeight(LocalContext.current)
-    val statusBarHeightDp = with(LocalDensity.current) {
-        statusBarHeight.toDp()
-    }
-    return statusBarHeightDp
-}
+
 
 @Composable
 fun getWindowToolBarHeight():Dp{

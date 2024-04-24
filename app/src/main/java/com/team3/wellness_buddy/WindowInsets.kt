@@ -2,6 +2,10 @@ package com.team3.wellness_buddy
 
 import android.annotation.SuppressLint
 import android.content.Context
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 
 @SuppressLint("InternalInsetResource", "DiscouragedApi")
 fun getStatusBarHeight(context: Context): Int {
@@ -22,4 +26,13 @@ fun getBottomToolBarHeight(context: Context):Int{
     }
     return result
 
+}
+
+@Composable
+fun getWindowStatusBarHeight(): Dp {
+    val statusBarHeight = getStatusBarHeight(LocalContext.current)
+    val statusBarHeightDp = with(LocalDensity.current) {
+        statusBarHeight.toDp()
+    }
+    return statusBarHeightDp
 }

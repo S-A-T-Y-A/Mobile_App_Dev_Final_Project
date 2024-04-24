@@ -40,6 +40,7 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import com.team3.wellness_buddy.helpers.rememberImeState
 
 @SuppressLint("ResourceType")
 @Composable

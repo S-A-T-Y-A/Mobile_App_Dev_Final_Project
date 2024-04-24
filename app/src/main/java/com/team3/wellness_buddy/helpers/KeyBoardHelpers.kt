@@ -1,4 +1,4 @@
-package com.team3.wellness_buddy
+package com.team3.wellness_buddy.helpers
 
 import android.view.ViewTreeObserver
 import androidx.compose.runtime.Composable
@@ -20,7 +20,7 @@ fun rememberImeState(): MutableState<Boolean> {
 
     val view= LocalView.current
     DisposableEffect(view) {
-        val listener=ViewTreeObserver.OnGlobalLayoutListener {
+        val listener= ViewTreeObserver.OnGlobalLayoutListener {
             val isKeyBoardOpen= ViewCompat.getRootWindowInsets(view)
                 ?.isVisible(WindowInsetsCompat.Type.ime())?:true
             imeState.value=isKeyBoardOpen

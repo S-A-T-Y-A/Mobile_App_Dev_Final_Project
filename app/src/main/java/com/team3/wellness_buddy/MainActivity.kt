@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.team3.wellness_buddy.register.SignUpPage
+
 import com.team3.wellness_buddy.usersList.UsersListPage
 
 
@@ -21,6 +23,7 @@ class MainActivity : ComponentActivity() {
 //            Login()
             UsersListPage()
 
+//            SignUpPage()
         }
     }
 }
