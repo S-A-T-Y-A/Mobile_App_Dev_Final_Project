@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
 import com.team3.wellness_buddy.R
+import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
-import com.team3.wellness_buddy.usersList.getWindowToolBarHeight
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

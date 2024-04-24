@@ -18,9 +18,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.team3.wellness_buddy.getWindowStatusBarHeight
+import com.team3.wellness_buddy.helpers.getWindowStatusBarHeight
+import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
-import com.team3.wellness_buddy.usersList.getWindowToolBarHeight
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
