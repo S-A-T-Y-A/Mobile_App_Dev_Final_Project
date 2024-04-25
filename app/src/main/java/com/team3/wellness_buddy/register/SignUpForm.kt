@@ -1,5 +1,6 @@
 package com.team3.wellness_buddy.register
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 
 
@@ -21,14 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
 import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpForm(
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    firebaseRef: String = "users"
 ) {
 
 
@@ -56,7 +62,8 @@ fun SignUpForm(
     var country by remember {
         mutableStateOf("")
     }
-
+    val dialogMessage = remember { mutableStateOf("") }
+    val openDialog = remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -301,6 +308,69 @@ fun SignUpForm(
         }
 
 //        Spacer(modifier = Modifier.height(16.dp))
+
+
+        fun validateInput(): Boolean {
+            return when {
+                firstName.isEmpty() -> {
+                    dialogMessage.value = "Please enter First Name"
+                    openDialog.value = true
+                    false
+                }
+                lastName.isEmpty() -> {
+                    dialogMessage.value = "Please enter Last Name"
+                    openDialog.value = true
+                    false
+                }
+                gender.isEmpty() -> {
+                    dialogMessage.value = "Please select Gender"
+                    openDialog.value = true
+                    false
+                }
+                age.isEmpty() -> {
+                    dialogMessage.value = "Please enter Age"
+                    openDialog.value = true
+                    false
+                }
+                email.isEmpty() -> {
+                    dialogMessage.value = "Please enter Email"
+                    openDialog.value = true
+                    false
+                }
+                bio.isEmpty() -> {
+                    dialogMessage.value = "Please enter Bio"
+                    openDialog.value = true
+                    false
+                }
+                street.isEmpty() -> {
+                    dialogMessage.value = "Please enter Street"
+                    openDialog.value = true
+                    false
+                }
+                city.isEmpty() -> {
+                    dialogMessage.value = "Please enter City"
+                    openDialog.value = true
+                    false
+                }
+                zipCode.isEmpty() -> {
+                    dialogMessage.value = "Please enter Zip Code"
+                    openDialog.value = true
+                    false
+                }
+                state.isEmpty() -> {
+                    dialogMessage.value = "Please enter State"
+                    openDialog.value = true
+                    false
+                }
+                country.isEmpty() -> {
+                    dialogMessage.value = "Please enter Country"
+                    openDialog.value = true
+                    false
+                }
+                else -> true
+            }
+        }
+
         Row(
             modifier= Modifier
                 .fillMaxWidth()
@@ -308,7 +378,33 @@ fun SignUpForm(
                     horizontalArrangement = Arrangement.Center
 
             ) {
-            Button(onClick = { /*TODO*/ },
+            Button(onClick = {
+                if (validateInput()) {
+                    val user = User(
+                        firstName,
+                        lastName,
+                        gender,
+                        age,
+                        email,
+                        bio,
+                        street,
+                        city,
+                        zipCode,
+                        state,
+                        country,
+                        if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else ""
+                    )
+                    // Print user details before storing to Firebase
+                    Log.d("SignUpForm", user.toString())
+
+                    val database = Firebase.database
+                    val userReference = database.reference.child(firebaseRef)
+                    userReference.push().setValue(user)
+
+                    dialogMessage.value = "Data saved successfully!"
+                    openDialog.value = true
+                }
+            },
                 modifier = Modifier.fillMaxWidth(0.5f)
                     .height(100.dp/2)
                     .width(100.dp),
@@ -320,12 +416,36 @@ fun SignUpForm(
             }
 
         }
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = { openDialog.value = false },
+                title = { Text(text = "Validation Error") },
+                text = { Text(text = dialogMessage.value) },
+                confirmButton = {
+                    TextButton(onClick = { openDialog.value = false }) {
+                        Text("OK")
+                    }
+                }
+            )
+        }
 
     }
-
-
-
 }
+
+data class User(
+    val firstName: String,
+    val lastName: String,
+    val gender: String,
+    val age: String,
+    val email: String,
+    val bio: String,
+    val street: String,
+    val city: String,
+    val zipCode: String,
+    val state: String,
+    val country: String,
+    val role: String
+)
 
 data class CheckboxState(val text: String, val checked: Boolean = false)
 

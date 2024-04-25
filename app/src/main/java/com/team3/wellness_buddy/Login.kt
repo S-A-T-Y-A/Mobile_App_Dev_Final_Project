@@ -1,6 +1,7 @@
 package com.team3.wellness_buddy
 
 import android.annotation.SuppressLint
+import android.util.Log
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
@@ -40,8 +41,9 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import com.google.firebase.database.ktx.database
 import com.team3.wellness_buddy.helpers.rememberImeState
-
+import com.google.firebase.ktx.Firebase
 @SuppressLint("ResourceType")
 @Composable
 fun Login(){
@@ -52,6 +54,26 @@ fun Login(){
 
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val openDialog = remember { mutableStateOf(false) }
+    val dialogMessage = remember { mutableStateOf("") }
+
+    fun validateLoginForm(): Boolean {
+        return when {
+            username.isEmpty() -> {
+                dialogMessage.value = "Please enter Username"
+                openDialog.value = true
+                false
+            }
+            password.isEmpty() -> {
+                dialogMessage.value = "Please enter Password"
+                openDialog.value = true
+                false
+            }
+            else -> true
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -113,11 +135,10 @@ fun Login(){
 
             Row(modifier = Modifier){
                 Custom_Button(text = "login  ",Custom_Colors.Primary_bg_lite) {
-                    Toast.makeText(
-                        context,
-                        "$username Login button clicked",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (validateLoginForm()) {
+                        // Check user data in Firebase here
+                        checkUserInFirebase(username, password, context)
+                    }
                 }
 
                 Custom_Button(text = "Sign Up ",Custom_Colors.Primary_bg_lite) {
@@ -142,12 +163,52 @@ fun Login(){
     }
 }
 
+fun checkUserInFirebase(username: String, password: String, context: android.content.Context) {
+    val database = Firebase.database
+    val userReference = database.reference.child("users")
+    Log.d("LoginForm",username )
+
+    userReference.get().addOnSuccessListener { dataSnapshot ->
+        val users = dataSnapshot.children
+        var isUserFound = false
+        for (user in users) {
+            val userObj = user.getValue(User::class.java)
+            if (userObj?.firstName == username && userObj.lastName == password) {
+                isUserFound = true
+                break
+            }
+        }
+
+        if (isUserFound) {
+            Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Invalid Username or Password", Toast.LENGTH_SHORT).show()
+        }
+    }.addOnFailureListener {
+        Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT).show()
+    }
+}
+
+data class User(
+    val firstName: String,
+    val lastName: String,
+    val gender: String,
+    val age: String,
+    val email: String,
+    val bio: String,
+    val street: String,
+    val city: String,
+    val zipCode: String,
+    val state: String,
+    val country: String,
+    val role: String
+)
+
 @Composable
 fun Custom_Button(text: String, bg_color:Color,onClick: () -> Unit){
     Button(
         onClick = onClick,
         modifier = Modifier
-
             .height(IntrinsicSize.Min)
             .padding(end = 8.dp)
             .width(100.dp),
