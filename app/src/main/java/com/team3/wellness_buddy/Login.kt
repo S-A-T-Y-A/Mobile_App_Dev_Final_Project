@@ -41,12 +41,21 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.navigation.NavController
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.team3.wellness_buddy.helpers.rememberImeState
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import java.security.MessageDigest
+
 @SuppressLint("ResourceType")
 @Composable
-fun Login(){
+fun Login(navController: NavController){
     val context = LocalContext.current
     val isImeVisible by rememberImeState()
 
@@ -57,6 +66,7 @@ fun Login(){
 
     val openDialog = remember { mutableStateOf(false) }
     val dialogMessage = remember { mutableStateOf("") }
+    val coroutineScope = rememberCoroutineScope()
 
     fun validateLoginForm(): Boolean {
         return when {
@@ -137,11 +147,14 @@ fun Login(){
                 Custom_Button(text = "login  ",Custom_Colors.Primary_bg_lite) {
                     if (validateLoginForm()) {
                         // Check user data in Firebase here
-                        checkUserInFirebase(username, password, context)
+                        checkUserInFirebase(username, hashString(password), context)
                     }
                 }
 
                 Custom_Button(text = "Sign Up ",Custom_Colors.Primary_bg_lite) {
+                    coroutineScope.launch {
+                        navController.navigate("signUp")
+                    }
                     Toast.makeText(
                         context,
                         " $password Sign Up button clicked",
@@ -158,50 +171,74 @@ fun Login(){
                 color = Color.Blue,
                 modifier = Modifier.clickable { /* Handle forgot password */ }
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Back to users
+            Text(
+                text = "Back To Coaches",
+                color = Color.Blue,
+                modifier = Modifier.clickable {
+                    coroutineScope.launch {
+                        navController.navigate("home")
+                    }
+                }
+            )
         }
         }
     }
 }
 
 fun checkUserInFirebase(username: String, password: String, context: android.content.Context) {
-    val database = Firebase.database
-    val userReference = database.reference.child("users")
+    lateinit var firebaseRef : DatabaseReference
+    firebaseRef = FirebaseDatabase.getInstance().getReference("users")
     Log.d("LoginForm",username )
 
-    userReference.get().addOnSuccessListener { dataSnapshot ->
-        val users = dataSnapshot.children
-        var isUserFound = false
-        for (user in users) {
-            val userObj = user.getValue(User::class.java)
-            if (userObj?.firstName == username && userObj.lastName == password) {
-                isUserFound = true
-                break
+    firebaseRef.orderByChild("email").equalTo(username).addListenerForSingleValueEvent (
+        object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (userSnapshot in snapshot.children) {
+                        val user = userSnapshot.getValue(User::class.java)
+                        Log.d("LoginForm",user.toString())
+                        if (user?.hashedPassword == password) {
+                            Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+                            Log.d("LoginForm","loggedIn" )
+                            return
+                        }
+                    }
+                    Toast.makeText(context, "Invalid Username or Password", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT).show()
+                Log.d("LoginForm","Error" )
             }
         }
-
-        if (isUserFound) {
-            Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Invalid Username or Password", Toast.LENGTH_SHORT).show()
-        }
-    }.addOnFailureListener {
-        Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT).show()
-    }
+    )
 }
 
+fun hashString(input: String): String {
+    val HEX_CHARS = "0123456789ABCDEF"
+    val bytes = MessageDigest
+        .getInstance("SHA-256")
+        .digest(input.toByteArray())
+    val result = StringBuilder(bytes.size * 2)
+
+    bytes.forEach {
+        val i = it.toInt() and 0xff
+        result.append(HEX_CHARS[i shr 4])
+        result.append(HEX_CHARS[i and 0x0f])
+    }
+
+    return result.toString()
+}
+
+
 data class User(
-    val firstName: String,
-    val lastName: String,
-    val gender: String,
-    val age: String,
-    val email: String,
-    val bio: String,
-    val street: String,
-    val city: String,
-    val zipCode: String,
-    val state: String,
-    val country: String,
-    val role: String
+    val email: String = "",
+    val hashedPassword: String = "",
 )
 
 @Composable
