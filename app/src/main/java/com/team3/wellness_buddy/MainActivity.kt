@@ -20,9 +20,8 @@ class MainActivity : ComponentActivity() {
 //            val vedioUri= Uri.parse("android.resource://com.team3.wellness_buddy/raw/logo_pulse");
 //            FlashScreen()
 
-//            Login()
-            UsersListPage()
-
+            Login()
+//            UsersListPage()
 //            SignUpPage()
         }
     }

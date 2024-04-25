@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -78,4 +79,15 @@ dependencies {
 
     //navbar dependency
     implementation ("androidx.navigation:navigation-compose:2.7.6")
+
+
+    // firebase
+
+    implementation(libs.firebase.database)
+    implementation("com.google.firebase:firebase-bom:31.0.2")
+    implementation("com.google.firebase:firebase-auth:21.0.1")
+    implementation("com.google.firebase:firebase-database")
+
+
+
 }
