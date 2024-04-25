@@ -1,6 +1,7 @@
 package com.team3.wellness_buddy.register
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 
 
@@ -23,20 +24,28 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.security.MessageDigest
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpForm(
     paddingValues: PaddingValues,
-    firebaseRef: String = "users"
+
 ) {
 
+    lateinit var firebaseRef : DatabaseReference
+    firebaseRef = FirebaseDatabase.getInstance().getReference("users")
 
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
@@ -44,6 +53,9 @@ fun SignUpForm(
     var gender by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+
     var bio by remember {
         mutableStateOf("")
     }
@@ -145,6 +157,25 @@ fun SignUpForm(
             onValueChange = { email = it },
             iconImage = R.raw.email,
             isIconAvailable = true)
+        Spacer(modifier = Modifier.height(16.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            MyTextField(
+                modifier = Modifier.weight(1.5f),
+                label = "Password",
+                value = password,
+                onValueChange = { password = it },
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            MyTextField(
+                modifier = Modifier.weight(1f),
+                label = "Confirm Password",
+                value = confirmPassword,
+                onValueChange = { confirmPassword = it },
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         MyTextField(
             modifier = Modifier
@@ -327,6 +358,21 @@ fun SignUpForm(
                     openDialog.value = true
                     false
                 }
+                password.isEmpty() -> {
+                    dialogMessage.value = "Please enter Password"
+                    openDialog.value = true
+                    false
+                }
+                confirmPassword.isEmpty() -> {
+                    dialogMessage.value = "Please enter Confirm Password"
+                    openDialog.value = true
+                    false
+                }
+                password != confirmPassword -> {
+                    dialogMessage.value = "Passwords do not match"
+                    openDialog.value = true
+                    false
+                }
                 age.isEmpty() -> {
                     dialogMessage.value = "Please enter Age"
                     openDialog.value = true
@@ -380,12 +426,15 @@ fun SignUpForm(
             ) {
             Button(onClick = {
                 if (validateInput()) {
+                    val hashedPassword = hashString(password)
+                    Log.d("HashedPassword",hashedPassword)
                     val user = User(
                         firstName,
                         lastName,
                         gender,
                         age,
                         email,
+                        hashedPassword,
                         bio,
                         street,
                         city,
@@ -396,14 +445,35 @@ fun SignUpForm(
                     )
                     // Print user details before storing to Firebase
                     Log.d("SignUpForm", user.toString())
+                    var userId = firebaseRef.push().key!!
+                    firebaseRef.orderByChild("email").equalTo(email).addListenerForSingleValueEvent (
+                        object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    // Email already exists
+                                    dialogMessage.value = "Email already exists!"
+                                    openDialog.value = true
+                                } else {
+                                    // Email does not exist, save the new user data
+                                    firebaseRef.push().setValue(user).addOnSuccessListener {
+                                        dialogMessage.value = "Data saved successfully!"
+                                        openDialog.value = true
+                                    }
+                                        .addOnFailureListener {
+                                            dialogMessage.value = "Error: ${it.message}"
+                                            openDialog.value = true
+                                        }
+                                }
+                            }
 
-                    val database = Firebase.database
-                    val userReference = database.reference.child(firebaseRef)
-                    userReference.push().setValue(user)
-
-                    dialogMessage.value = "Data saved successfully!"
-                    openDialog.value = true
+                            override fun onCancelled(error: DatabaseError) {
+                                dialogMessage.value = "Error: ${error.message}"
+                                openDialog.value = true
+                            }
+                        }
+                    )
                 }
+
             },
                 modifier = Modifier.fillMaxWidth(0.5f)
                     .height(100.dp/2)
@@ -432,12 +502,29 @@ fun SignUpForm(
     }
 }
 
+private fun hashString(input: String): String {
+    val HEX_CHARS = "0123456789ABCDEF"
+    val bytes = MessageDigest
+        .getInstance("SHA-256")
+        .digest(input.toByteArray())
+    val result = StringBuilder(bytes.size * 2)
+
+    bytes.forEach {
+        val i = it.toInt() and 0xff
+        result.append(HEX_CHARS[i shr 4])
+        result.append(HEX_CHARS[i and 0x0f])
+    }
+
+    return result.toString()
+}
+
 data class User(
     val firstName: String,
     val lastName: String,
     val gender: String,
     val age: String,
     val email: String,
+    val hashedPassword: String,
     val bio: String,
     val street: String,
     val city: String,

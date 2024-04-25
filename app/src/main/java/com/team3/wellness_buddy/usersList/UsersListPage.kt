@@ -39,6 +39,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 
@@ -56,12 +57,16 @@ import com.team3.wellness_buddy.register.MyCustomIcon
 import com.team3.wellness_buddy.register.SignUpForm
 import com.team3.wellness_buddy.register.loadMyIcon
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
+import kotlinx.coroutines.launch
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 
 @SuppressLint("SuspiciousIndentation", "ResourceType")
 @Preview(showBackground = true)
 @Composable
-fun UsersListPage(){
+fun UsersListPage(navController: NavController){
+    val coroutineScope = rememberCoroutineScope()
     val context= LocalContext.current
    Scaffold(
         modifier = Modifier
@@ -100,7 +105,11 @@ fun UsersListPage(){
 
            val myIconBitmap= loadMyIcon(iconImage = R.raw.user, altText = "ProfilePicture")
            FloatingActionButton(
-               onClick = { /* Handle FAB click */ },
+               onClick = {
+                   coroutineScope.launch {
+                       navController.navigate("login")
+                   }
+               },
                modifier = Modifier
                    .size(50.dp),
                backgroundColor = Color.Black, // Set your desired FAB background color // Set your desired FAB content color
