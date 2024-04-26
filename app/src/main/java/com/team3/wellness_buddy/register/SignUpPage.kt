@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
+
 @Composable
 fun SignUpPage(navController: NavController){
     val context= LocalContext.current

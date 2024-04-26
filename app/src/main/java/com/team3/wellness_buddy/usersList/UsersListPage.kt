@@ -63,7 +63,7 @@ import androidx.navigation.compose.rememberNavController
 
 
 @SuppressLint("SuspiciousIndentation", "ResourceType")
-@Preview(showBackground = true)
+
 @Composable
 fun UsersListPage(navController: NavController){
     val coroutineScope = rememberCoroutineScope()
@@ -103,7 +103,7 @@ fun UsersListPage(navController: NavController){
 
        floatingActionButton = {
 
-           val myIconBitmap= loadMyIcon(iconImage = R.raw.user, altText = "ProfilePicture")
+//           val myIconBitmap= loadMyIcon(iconImage = R.raw.user, altText = "ProfilePicture")
            FloatingActionButton(
                onClick = {
                    coroutineScope.launch {

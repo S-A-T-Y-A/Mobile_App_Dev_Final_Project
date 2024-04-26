@@ -1,0 +1,24 @@
+Index: app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.team3.wellness_buddy\n\n\nimport android.content.Context\nimport android.net.Uri\n\n\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.compose.setContent\nimport com.team3.wellness_buddy.register.SignUpPage\n\nimport com.team3.wellness_buddy.usersList.UsersListPage\n\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContent {\n//            val vedioUri= Uri.parse(\"android.resource://com.team3.wellness_buddy/raw/logo_pulse\");\n//            FlashScreen()\n\n//            Login()\n            UsersListPage()\n\n//            SignUpPage()\n        }\n    }\n}\n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
+@@ -18,10 +18,10 @@
+         super.onCreate(savedInstanceState)
+         setContent {
+ //            val vedioUri= Uri.parse("android.resource://com.team3.wellness_buddy/raw/logo_pulse");
+-//            FlashScreen()
++            FlashScreen()
+ 
+-//            Login()
+-            UsersListPage()
++            Login()
++//            UsersListPage()
+ 
+ //            SignUpPage()
+         }

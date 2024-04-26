@@ -87,9 +87,11 @@ fun Login(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top=if(isImeVisible) 50.dp else 0.dp),
+            .padding(top = if (isImeVisible) 50.dp else 0.dp),
         contentAlignment = (if(isImeVisible) Alignment.TopCenter else Alignment.Center),
     ) {
+
+
 
         Box(modifier = Modifier
             .background(Color.White, RoundedCornerShape(16.dp))
