@@ -60,6 +60,7 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 import kotlinx.coroutines.launch
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.team3.wellness_buddy.UserPreferences
 
 
 @SuppressLint("SuspiciousIndentation", "ResourceType")
@@ -82,7 +83,16 @@ fun UsersListPage(navController: NavController){
                         modifier = Modifier
                             .background(Color.Transparent)
                     ) {
-                        Text(text = "User Name")
+                        val firstName = UserPreferences.getFirstName(context)
+                        val lastName = UserPreferences.getLastName(context)
+
+                        val displayName = if (firstName.isNullOrBlank() && lastName.isNullOrBlank()) {
+                            "Wellness Buddy"
+                        } else {
+                            "${firstName.orEmpty()} ${lastName.orEmpty()}"
+                        }
+
+                        Text(text = displayName)
                     }
                 },
                 backgroundColor = Custom_Colors.Primary_bg,
