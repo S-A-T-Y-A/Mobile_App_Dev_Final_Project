@@ -57,7 +57,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.team3.wellness_buddy.UserPreferences
 
-
+val finalUserList = MutableLiveData<List<User>>()
 
 @SuppressLint("SuspiciousIndentation", "ResourceType")
 
@@ -67,35 +67,39 @@ fun UsersListPage(navController: NavController){
     val context= LocalContext.current
     val categories = listOf("ENT Specialist", "Orthopedic Specialist", "Gastroenterologist", "Dermatologist", "Neurologist", "Psychiatrist")
     val ages = listOf("<25", "<35", "<=45", ">=45")
-    val _userList = MutableLiveData<List<User>>()
+
+    val userList = mutableListOf<User>()
     var selectedCategory by remember { mutableStateOf(categories[0]) }
     var selectedAge by remember { mutableStateOf(ages[0]) }
     var isDataLoaded by remember { mutableStateOf(false) } // Track whether data is loaded
 
-    fun fetchUserList() {
-        val firebaseRef = FirebaseDatabase.getInstance().getReference("users")
-        firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userList = mutableListOf<User>()
-                for (userSnapshot in snapshot.children) {
-                    val user = userSnapshot.getValue(User::class.java)
+    var firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+    firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+
+            for (userSnapshot in snapshot.children) {
+                val user = userSnapshot.getValue(User::class.java)
                     user?.let {
-                        userList.add(it)
+                        val selectedCategories = UserPreferences.getSelectedCategories(context);
+                        val isCategoryExist =
+                            selectedCategories?.contains(it.category.toString()) == true;
+                        if (selectedCategories != null) {
+                            if (selectedCategories.isNotEmpty() && isCategoryExist) {
+
+                                userList.add(it)
+                            }
+                        }
                     }
                 }
-                Log.d("UserList",userList.toString())
-                _userList.value = userList
                 isDataLoaded = true
+                finalUserList.value = userList
+                Log.d("UserList", finalUserList.value.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
                 // Handle error
             }
-        })
-    }
-    LaunchedEffect(true) {
-        fetchUserList()
-    }
+    })
 
 
     @Composable
@@ -202,10 +206,10 @@ fun UsersListPage(navController: NavController){
 
         ) { innerPadding ->
         FilterRow(categories, ages)
-        Log.d("UserList1",_userList.toString())
+        Log.d("UserList1",finalUserList.toString())
 
         if (!isDataLoaded) {
-            Log.d("UserList1",_userList.toString())
+            Log.d("UserList1",finalUserList.toString())
 
             Box(
                 modifier = Modifier
@@ -216,7 +220,7 @@ fun UsersListPage(navController: NavController){
                 CircularProgressIndicator()
             }
         } else {
-            _userList.value?.let { userList ->
+            finalUserList.value?.let { userList ->
                 UserListContent(userList = userList, paddingValues = innerPadding)
             }
         }
