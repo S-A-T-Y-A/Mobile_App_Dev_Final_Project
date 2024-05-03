@@ -1,7 +1,7 @@
 package com.team3.wellness_buddy.usersList
 
 
-import User
+
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -61,6 +61,53 @@ import com.team3.wellness_buddy.UserPreferences
 
 
 
+//user list -dummy //0
+//
+//fun fetchUserList() {
+//    val firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+//    firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//        override fun onDataChange(snapshot: DataSnapshot) {
+//            val userList = mutableListOf<User>()
+//            for (userSnapshot in snapshot.children) {
+//                val user = userSnapshot.getValue(User::class.java)
+//                user?.let {
+//                    userList.add(it)
+//                }
+//            }
+//            Log.d("UserList",userList.toString())
+//            _userList.value = userList
+//            isDataLoaded = true
+//        }
+//
+//        override fun onCancelled(error: DatabaseError) {
+//            // Handle error
+//        }
+//    })
+//}
+
+
+fun fetchUserList(): MutableList<User> {
+    val firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+    val userList = mutableListOf<User>()
+    firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+
+            for (userSnapshot in snapshot.children) {
+                val user = userSnapshot.getValue(User::class.java)
+                user?.let {
+                    userList.add(it)
+                }
+            }
+            Log.d("UserList",userList.toString())
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            // Handle error
+        }
+    })
+    return userList;
+}
+
 @SuppressLint("SuspiciousIndentation", "ResourceType")
 
 @Composable
@@ -69,37 +116,38 @@ fun UsersListPage(navController: NavController){
     val context= LocalContext.current
     val categories = listOf("ENT Specialist", "Orthopedic Specialist", "Gastroenterologist", "Dermatologist", "Neurologist", "Psychiatrist")
     val ages = listOf("<25", "<35", "<=45", ">=45")
-    val _userList = MutableLiveData<List<User>>()
+    var _userList by remember { mutableStateOf<List<User>>(emptyList()) } //0 ///dummy list //0
+
     var selectedCategory by remember { mutableStateOf(categories[0]) }
     var selectedAge by remember { mutableStateOf(ages[0]) }
     var isDataLoaded by remember { mutableStateOf(false) } // Track whether data is loaded
 
-    fun fetchUserList() {
-        val firebaseRef = FirebaseDatabase.getInstance().getReference("users")
-        firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userList = mutableListOf<User>()
-                for (userSnapshot in snapshot.children) {
-                    val user = userSnapshot.getValue(User::class.java)
-                    user?.let {
-                        userList.add(it)
-                    }
-                }
-                Log.d("UserList",userList.toString())
-                _userList.value = userList
-                isDataLoaded = true
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle error
-            }
-        })
-    }
+//    fun fetchUserList() {
+//        val firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+//        firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                val userList = mutableListOf<User>()
+//                for (userSnapshot in snapshot.children) {
+//                    val user = userSnapshot.getValue(User::class.java)
+//                    user?.let {
+//                        userList.add(it)
+//                    }
+//                }
+//                Log.d("UserList",userList.toString())
+//                _userList.value = userList
+//                isDataLoaded = true
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                // Handle error
+//            }
+//        })
+//    }
     LaunchedEffect(true) {
-        fetchUserList()
+        _userList=fetchUserList() //6
     }
-
-
+//dummy
+//0
     @Composable
     fun FilterRow(
         categories: List<String>,
@@ -218,8 +266,6 @@ fun UsersListPage(navController: NavController){
                 CircularProgressIndicator()
             }
         } else {
-            _userList.value?.let { userList ->
-                UserListContent(userList = userList, paddingValues = innerPadding)
-            }
+            UserListContent(userList = _userList, paddingValues = innerPadding)
         }
     }}

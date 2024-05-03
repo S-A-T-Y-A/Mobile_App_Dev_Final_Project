@@ -1,3 +1,5 @@
+package com.team3.wellness_buddy.usersList
+
 data class User(
     val firstName: String = "",
     val lastName: String = "",
