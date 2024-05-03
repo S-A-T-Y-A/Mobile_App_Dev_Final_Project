@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.team3.wellness_buddy.UserPreferences
 import com.team3.wellness_buddy.helpers.getWindowStatusBarHeight
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
@@ -63,7 +64,11 @@ fun SignUpPage(navController: NavController){
     ) {
         innerPadding->
         SignUpForm(
-            paddingValues=innerPadding
+            paddingValues=innerPadding,
+            navController,
+            onSaveUserInfo = { firstName, lastName, email ->
+                UserPreferences.saveUserInfo(context, firstName, lastName, email)
+            }
         )
     }
 }

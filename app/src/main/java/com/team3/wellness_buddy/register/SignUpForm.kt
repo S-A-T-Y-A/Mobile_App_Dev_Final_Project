@@ -16,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavController
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -36,17 +38,18 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.security.MessageDigest
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpForm(
     paddingValues: PaddingValues,
+    navController: NavController,
+    onSaveUserInfo: (String, String, String) -> Unit
 
 ) {
 
     lateinit var firebaseRef : DatabaseReference
     firebaseRef = FirebaseDatabase.getInstance().getReference("users")
-
+    val coroutineScope = rememberCoroutineScope()
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     val genders = listOf("Male", "Female", "Others")
@@ -253,7 +256,7 @@ fun SignUpForm(
         // Add checkboxes
         // Example:
         var seekerChecked by remember {
-            mutableStateOf(true)
+            mutableStateOf(false)
         }
 
 
@@ -288,6 +291,7 @@ fun SignUpForm(
                         }else if(checkboxState.text == "Seeker"){
                             if (isChecked) {
                                 coachChecked = false
+                                seekerChecked = isChecked
                             }
                         }
                     }
@@ -441,7 +445,8 @@ fun SignUpForm(
                         zipCode,
                         state,
                         country,
-                        if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else ""
+                        if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else "",
+                        level
                     )
                     // Print user details before storing to Firebase
                     Log.d("SignUpForm", user.toString())
@@ -456,8 +461,8 @@ fun SignUpForm(
                                 } else {
                                     // Email does not exist, save the new user data
                                     firebaseRef.push().setValue(user).addOnSuccessListener {
-                                        dialogMessage.value = "Data saved successfully!"
-                                        openDialog.value = true
+                                        onSaveUserInfo(firstName, lastName, email)
+                                        navController.navigate("home")
                                     }
                                         .addOnFailureListener {
                                             dialogMessage.value = "Error: ${it.message}"
@@ -531,7 +536,8 @@ data class User(
     val zipCode: String,
     val state: String,
     val country: String,
-    val role: String
+    val role: String,
+    val level: String?
 )
 
 data class CheckboxState(val text: String, val checked: Boolean = false)
@@ -544,3 +550,5 @@ fun MyCheckBox(text: String, checked: Boolean, onCheckedChange: (Boolean) -> Uni
         Text(text)
     }
 }
+
+
