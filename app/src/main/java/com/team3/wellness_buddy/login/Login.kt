@@ -1,13 +1,9 @@
-package com.team3.wellness_buddy
+package com.team3.wellness_buddy.login
 
 import android.annotation.SuppressLint
 import android.util.Log
 
 import android.widget.Toast
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,7 +15,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -29,27 +24,24 @@ import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.platform.LocalContext
 
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
-import androidx.compose.animation.core.tween
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
+import com.team3.wellness_buddy.R
+import com.team3.wellness_buddy.helpers.MyCustomIcon
 import com.team3.wellness_buddy.helpers.rememberImeState
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
@@ -87,20 +79,24 @@ fun Login(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(Custom_Colors.Primary_bg)
             .padding(top = if (isImeVisible) 50.dp else 0.dp),
         contentAlignment = (if(isImeVisible) Alignment.TopCenter else Alignment.Center),
     ) {
 
 
+//        FlashScreen()
 
         Box(modifier = Modifier
-            .background(Color.White, RoundedCornerShape(16.dp))
+            .background(Custom_Colors.light_bg_secondary, RoundedCornerShape(30.dp))
             .fillMaxWidth(0.9f)
             .width(IntrinsicSize.Max)
-            .padding(top = 10.dp, bottom = 10.dp)
+            .padding(top = 10.dp, bottom = 10.dp),
 
             ){
 
+
+//            FlashScreen()
         // Content
         Column(
             modifier = Modifier
@@ -108,13 +104,31 @@ fun Login(navController: NavController){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = Values.app_name, modifier = Modifier
-                ,style = TextStyle(
-                    fontSize = 18.sp, // Increase font size to 18 sp
-                    fontWeight = FontWeight.Bold // Make text bold
-                )
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(modifier = Modifier
+                .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center) {
+
+                    MyCustomIcon(iconImage = R.raw.logo, iconSize = 50)
+                   Spacer(modifier = Modifier.width(2.dp))
+                Text(text = "Wellness Buddy",
+                        fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp)
+
+            }
+
+
+//            val myIconBitmap= loadMyIcon(iconImage = R.raw.log, altText = iconText+"_icon")
+//            Row(
+//                Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+//            ){
+//                MyCustomIcon(iconImage = myIconBitmap)
+//                Spacer(modifier = modifier.width(20.dp))
+//                androidx.compose.material3.Text(text = text, fontWeight = FontWeight.Bold)
+//            }
+
+            Spacer(modifier = Modifier.height(30.dp))
             // Username field
 
             MyTextField(
@@ -122,7 +136,8 @@ fun Login(navController: NavController){
                 value = username,
                 onValueChange = {username=it},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                keyboardActions = KeyboardActions(onDone = null) )
+                keyboardActions = KeyboardActions(onDone = null),
+                iconImage = R.raw.email)
 
 //            var username by remember { mutableStateOf("") }
 //            TextField(
@@ -140,7 +155,8 @@ fun Login(navController: NavController){
                 value=password,
                 onValueChange = {password=it},
                 keyboardOptions = KeyboardOptions(keyboardType =KeyboardType.Password),
-                keyboardActions = KeyboardActions(onDone=null) )
+                keyboardActions = KeyboardActions(onDone=null) ,
+                iconImage = R.raw.password)
 
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -168,13 +184,15 @@ fun Login(navController: NavController){
             Spacer(modifier = Modifier.height(16.dp))
 
             // Forgot password link
+            Row {
+                
             Text(
                 text = "Forgot Password?",
                 color = Color.Blue,
                 modifier = Modifier.clickable { /* Handle forgot password */ }
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
 
             // Back to users
             Text(
@@ -186,6 +204,7 @@ fun Login(navController: NavController){
                     }
                 }
             )
+            }
         }
         }
     }
@@ -255,4 +274,11 @@ fun Custom_Button(text: String, bg_color:Color,onClick: () -> Unit){
     ) {
         Text(text, color = Color.White)
     }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun showLogin(){
+    Login(navController = rememberNavController())
 }

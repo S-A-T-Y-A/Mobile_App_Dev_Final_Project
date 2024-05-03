@@ -1,10 +1,6 @@
 package com.team3.wellness_buddy
 
 
-import android.content.Context
-import android.net.Uri
-
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,13 +12,16 @@ import com.team3.wellness_buddy.register.SignUpPage
 
 import com.team3.wellness_buddy.usersList.UsersListPage
 import com.google.firebase.FirebaseApp
+import com.team3.wellness_buddy.categoryexplorer.Show
+import com.team3.wellness_buddy.login.Login
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            WellnessBuddyApp()
+            Show()
+//            WellnessBuddyApp()
             FirebaseApp.initializeApp(this)
         }
     }
@@ -34,11 +33,12 @@ class MainActivity : ComponentActivity() {
 fun WellnessBuddyApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "home") {
+    NavHost(navController = navController, startDestination = "signUp") {
         composable("login") { Login(navController) }
         composable("home") { UsersListPage(navController) }
         composable("signUp") { SignUpPage(navController) }
     }
+
 }
 
 
