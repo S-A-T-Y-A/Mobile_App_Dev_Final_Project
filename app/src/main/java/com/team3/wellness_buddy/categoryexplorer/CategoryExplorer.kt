@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,20 +34,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.team3.wellness_buddy.R
+import com.team3.wellness_buddy.UserPreferences
 import com.team3.wellness_buddy.login.Custom_Button
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
-
+import kotlinx.coroutines.launch
 
 
 @SuppressLint("ResourceType")
 @Composable
-fun CategorySelectionPage() {
+fun CategorySelectionPage(navController: NavController) {
+    val selectedCategories by remember { mutableStateOf(mutableSetOf<String>()) }
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -62,15 +68,21 @@ fun CategorySelectionPage() {
                 .graphicsLayer(alpha = 0.13f)
         )
 
-        CategoryList()
+        CategoryList(selectedCategories, navController) { categories ->
+            UserPreferences.saveSelectedCategories(categories, context)
+        }
 
     }
 }
 
 @Composable
 fun CategoryList(
-
+    selectedCategories: MutableSet<String>,
+    navController: NavController,
+    onSaveCategories: (MutableSet<String>) -> Unit
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     val categoryListImages = listOf(
         R.raw.ent,
         R.raw.orthopedic,
@@ -122,6 +134,11 @@ fun CategoryList(
                 println("Selected categories")
                 selectedCategories.forEach { category ->
                     println(category)
+
+                }
+                onSaveCategories(selectedCategories)
+                coroutineScope.launch {
+                    navController.navigate("home")
                 }
             },
             modifier = Modifier
@@ -188,8 +205,3 @@ fun ClickableImageCircle(
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun Show(){
-    CategorySelectionPage ()
-}
