@@ -1,7 +1,6 @@
 package com.team3.wellness_buddy.register
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.Composable
 
 
@@ -23,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -33,8 +31,7 @@ import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.team3.wellness_buddy.helpers.IconText
 import java.security.MessageDigest
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -84,6 +81,7 @@ fun SignUpForm(
 //                top = getWindowStatusBarHeight(),
 //                bottom = getWindowToolBarHeight() + 10.dp
 //            )
+
             .padding(horizontal = 10.dp)
             .imePadding()
             .fillMaxWidth()
@@ -163,10 +161,12 @@ fun SignUpForm(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             MyTextField(
-                modifier = Modifier.weight(1.5f),
+                modifier = Modifier.weight(1f),
                 label = "Password",
                 value = password,
                 onValueChange = { password = it },
+                iconImage = R.raw.password,
+                isIconAvailable = true
             )
             Spacer(modifier = Modifier.width(10.dp))
             MyTextField(
@@ -185,6 +185,7 @@ fun SignUpForm(
             label = "Describe Your Self",
             value = bio,
             onValueChange = { bio = it },
+            maxLines = 10
             )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -302,7 +303,7 @@ fun SignUpForm(
         var category by remember {
             mutableStateOf("")
         }
-        var category_list= listOf("Psychiatrist","Dermatologist","Nutrient")
+        var category_list= listOf("ENT Specialist","Orthopedic Specialist","Gastroenterologist","Dermatologist","Neurologist","Psychiatrist")
 
         var level by remember {
             mutableStateOf("")

@@ -18,4 +18,5 @@ object Custom_Colors{
     val Primary_bg_lite=Color(0xFF07435a)
     val textField_color=Color(0xFFEFEEEE)
     val textFieldColor=Color(0xFF135D66)
+    val light_bg_secondary=Color(0xFFB6CDCF)
 }

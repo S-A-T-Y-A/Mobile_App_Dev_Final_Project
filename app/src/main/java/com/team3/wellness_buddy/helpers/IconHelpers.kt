@@ -1,4 +1,4 @@
-package com.team3.wellness_buddy.register
+package com.team3.wellness_buddy.helpers
 
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun loadMyIcon(iconImage:Int, altText:String): ImageBitmap {
+fun loadMyIcon(iconImage:Int, altText:String="image"): ImageBitmap {
     val context= LocalContext.current
     val bitmap = BitmapFactory.decodeStream(context.resources.openRawResource(iconImage))
     return bitmap.asImageBitmap()
@@ -42,5 +42,26 @@ fun MyCustomIcon(
             contentScale = ContentScale.Fit,
 
         )
+    }
+}
+
+@Composable
+fun MyCustomIcon(
+    iconImage: Int,
+    modifier: Modifier = Modifier,
+    iconSize: Int = 24 // Adjust the size of the icon as needed
+) {
+    Box(modifier = modifier
+    ) {
+        Image(
+            bitmap = loadMyIcon(iconImage = iconImage),
+            contentDescription = null,
+            modifier = Modifier
+                .size(iconSize.dp)
+                .fillMaxSize()// Set the size of the icon
+                .background(Color.Transparent),
+            contentScale = ContentScale.Fit,
+
+            )
     }
 }

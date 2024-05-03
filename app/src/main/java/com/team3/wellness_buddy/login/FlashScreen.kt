@@ -1,34 +1,17 @@
-package com.team3.wellness_buddy
+package com.team3.wellness_buddy.login
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.net.Uri
-import android.os.Handler
-import android.os.Looper
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.FrameLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.viewinterop.AndroidView
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-import com.google.android.exoplayer2.ui.StyledPlayerView
-import kotlinx.coroutines.delay
-import kotlin.math.exp
-
-
+import androidx.navigation.compose.rememberNavController
+import com.team3.wellness_buddy.R
 
 
 @SuppressLint("ResourceType")
@@ -47,6 +30,10 @@ fun FlashScreen() {
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
+
+
         )
     }
+    val navController = rememberNavController()
+
 }
