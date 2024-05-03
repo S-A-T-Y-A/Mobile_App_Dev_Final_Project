@@ -1,6 +1,7 @@
 package com.team3.wellness_buddy.register
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 
 
@@ -15,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -22,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavController
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -31,19 +35,21 @@ import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
-import com.team3.wellness_buddy.helpers.IconText
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.security.MessageDigest
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpForm(
     paddingValues: PaddingValues,
+    navController: NavController,
+    onSaveUserInfo: (String, String, String) -> Unit
 
 ) {
 
     lateinit var firebaseRef : DatabaseReference
     firebaseRef = FirebaseDatabase.getInstance().getReference("users")
-
+    val coroutineScope = rememberCoroutineScope()
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     val genders = listOf("Male", "Female", "Others")
@@ -81,7 +87,6 @@ fun SignUpForm(
 //                top = getWindowStatusBarHeight(),
 //                bottom = getWindowToolBarHeight() + 10.dp
 //            )
-
             .padding(horizontal = 10.dp)
             .imePadding()
             .fillMaxWidth()
@@ -161,12 +166,10 @@ fun SignUpForm(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             MyTextField(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1.5f),
                 label = "Password",
                 value = password,
                 onValueChange = { password = it },
-                iconImage = R.raw.password,
-                isIconAvailable = true
             )
             Spacer(modifier = Modifier.width(10.dp))
             MyTextField(
@@ -185,7 +188,6 @@ fun SignUpForm(
             label = "Describe Your Self",
             value = bio,
             onValueChange = { bio = it },
-            maxLines = 10
             )
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -254,7 +256,7 @@ fun SignUpForm(
         // Add checkboxes
         // Example:
         var seekerChecked by remember {
-            mutableStateOf(true)
+            mutableStateOf(false)
         }
 
 
@@ -289,6 +291,7 @@ fun SignUpForm(
                         }else if(checkboxState.text == "Seeker"){
                             if (isChecked) {
                                 coachChecked = false
+                                seekerChecked = isChecked
                             }
                         }
                     }
@@ -303,7 +306,7 @@ fun SignUpForm(
         var category by remember {
             mutableStateOf("")
         }
-        var category_list= listOf("ENT Specialist","Orthopedic Specialist","Gastroenterologist","Dermatologist","Neurologist","Psychiatrist")
+        var category_list= listOf("Psychiatrist","Dermatologist","Nutrient")
 
         var level by remember {
             mutableStateOf("")
@@ -442,7 +445,8 @@ fun SignUpForm(
                         zipCode,
                         state,
                         country,
-                        if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else ""
+                        if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else "",
+                        level
                     )
                     // Print user details before storing to Firebase
                     Log.d("SignUpForm", user.toString())
@@ -457,8 +461,8 @@ fun SignUpForm(
                                 } else {
                                     // Email does not exist, save the new user data
                                     firebaseRef.push().setValue(user).addOnSuccessListener {
-                                        dialogMessage.value = "Data saved successfully!"
-                                        openDialog.value = true
+                                        onSaveUserInfo(firstName, lastName, email)
+                                        navController.navigate("home")
                                     }
                                         .addOnFailureListener {
                                             dialogMessage.value = "Error: ${it.message}"
@@ -532,7 +536,8 @@ data class User(
     val zipCode: String,
     val state: String,
     val country: String,
-    val role: String
+    val role: String,
+    val level: String?
 )
 
 data class CheckboxState(val text: String, val checked: Boolean = false)
@@ -545,3 +550,5 @@ fun MyCheckBox(text: String, checked: Boolean, onCheckedChange: (Boolean) -> Uni
         Text(text)
     }
 }
+
+

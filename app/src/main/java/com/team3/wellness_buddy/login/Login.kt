@@ -165,7 +165,7 @@ fun Login(navController: NavController){
                 Custom_Button(text = "login  ",Custom_Colors.Primary_bg_lite) {
                     if (validateLoginForm()) {
                         // Check user data in Firebase here
-                        checkUserInFirebase(username, hashString(password), context)
+                        checkUserInFirebase(username, hashString(password), context, navController)
                     }
                 }
 
@@ -210,7 +210,7 @@ fun Login(navController: NavController){
     }
 }
 
-fun checkUserInFirebase(username: String, password: String, context: android.content.Context) {
+fun checkUserInFirebase(username: String, password: String, context: android.content.Context, navController:NavController) {
     lateinit var firebaseRef : DatabaseReference
     firebaseRef = FirebaseDatabase.getInstance().getReference("users")
     Log.d("LoginForm",username )
@@ -224,7 +224,10 @@ fun checkUserInFirebase(username: String, password: String, context: android.con
                         Log.d("LoginForm",user.toString())
                         if (user?.hashedPassword == password) {
                             Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+                            UserPreferences.saveUserInfo(context, user.firstName, user.lastName, user.email)
+
                             Log.d("LoginForm","loggedIn" )
+                            navController.navigate("home")
                             return
                         }
                     }
@@ -260,6 +263,8 @@ fun hashString(input: String): String {
 data class User(
     val email: String = "",
     val hashedPassword: String = "",
+    val firstName: String = "",
+    val lastName: String = ""
 )
 
 @Composable
