@@ -167,7 +167,7 @@ fun SignUpForm(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             MyTextField(
-                modifier = Modifier.weight(1.5f),
+                modifier = Modifier.weight(1f),
                 label = "Password",
                 value = password,
                 onValueChange = { password = it },
