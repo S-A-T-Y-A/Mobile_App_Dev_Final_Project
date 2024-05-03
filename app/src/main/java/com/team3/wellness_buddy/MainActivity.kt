@@ -14,7 +14,6 @@ import com.team3.wellness_buddy.register.SignUpPage
 import com.team3.wellness_buddy.usersList.UsersListPage
 import com.google.firebase.FirebaseApp
 import com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage
-import com.team3.wellness_buddy.categoryexplorer.Show
 import com.team3.wellness_buddy.login.Login
 
 object UserPreferences {
@@ -22,7 +21,19 @@ object UserPreferences {
     private const val KEY_FIRST_NAME = "first_name"
     private const val KEY_LAST_NAME = "last_name"
     private const val KEY_EMAIL = "email"
+    private const val KEY_USER_SELECTED_CATEGORIES = "user_categories_selected_fetched"
 
+    fun saveSelectedCategories(categories: MutableSet<String>, context: Context) {
+        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putStringSet(KEY_USER_SELECTED_CATEGORIES, categories)
+        editor.apply()
+    }
+
+    fun getSelectedCategories(context: Context):  Set<String>? {
+        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getStringSet(KEY_USER_SELECTED_CATEGORIES,emptySet())
+    }
     fun saveUserInfo(context: Context, firstName: String?, lastName: String?, email: String) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -53,7 +64,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Show()
             WellnessBuddyApp()
             FirebaseApp.initializeApp(this)
         }
@@ -71,7 +81,7 @@ fun WellnessBuddyApp() {
         composable("home") { UsersListPage(navController) }
         composable("signUp") { SignUpPage(navController) }
         composable("category_explorer"){
-            CategorySelectionPage()
+            CategorySelectionPage(navController)
         }
     }
 
