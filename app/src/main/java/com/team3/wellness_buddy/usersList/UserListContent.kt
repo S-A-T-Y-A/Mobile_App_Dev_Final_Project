@@ -1,5 +1,6 @@
 package com.team3.wellness_buddy.usersList
 
+import User
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,31 +20,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
-
 @Composable
-//fun UserList(userList:List<User>)
-fun UserListContent(paddingValues: PaddingValues) {
-    val scrollState= rememberScrollState()
+fun UserListContent(userList: List<User>, paddingValues: PaddingValues) {
+    val scrollState = rememberScrollState()
     Column(
-            modifier = Modifier
-                .padding(paddingValues)
-                .imePadding()
-                .fillMaxSize()
-                .verticalScroll(scrollState),
+        modifier = Modifier
+            .padding(paddingValues)
+            .imePadding()
+            .fillMaxSize()
+            .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
-
-
-        ) {
-            val name="Satya"
-            val description="Psychiatrist"
+    ) {
         Spacer(modifier = Modifier.height(10.dp))
-            for(i in 0..10){
-
-                UserListElement(name,description)
-                Spacer(modifier = Modifier.height(10.dp))
-            }
-        Spacer(modifier = Modifier.height(65.dp))
-
+        userList.forEach { user ->
+            UserListElement(user = user)
+            Spacer(modifier = Modifier.height(10.dp))
         }
-
+        Spacer(modifier = Modifier.height(65.dp))
+    }
 }
