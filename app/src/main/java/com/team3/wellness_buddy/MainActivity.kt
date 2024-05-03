@@ -12,6 +12,7 @@ import com.team3.wellness_buddy.register.SignUpPage
 
 import com.team3.wellness_buddy.usersList.UsersListPage
 import com.google.firebase.FirebaseApp
+import com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage
 import com.team3.wellness_buddy.categoryexplorer.Show
 import com.team3.wellness_buddy.login.Login
 
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Show()
-//            WellnessBuddyApp()
+            WellnessBuddyApp()
             FirebaseApp.initializeApp(this)
         }
     }
@@ -33,10 +34,13 @@ class MainActivity : ComponentActivity() {
 fun WellnessBuddyApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "signUp") {
+    NavHost(navController = navController, startDestination = "category_explorer") {
         composable("login") { Login(navController) }
         composable("home") { UsersListPage(navController) }
         composable("signUp") { SignUpPage(navController) }
+        composable("category_explorer"){
+            CategorySelectionPage()
+        }
     }
 
 }
