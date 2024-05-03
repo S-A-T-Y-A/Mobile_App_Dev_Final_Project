@@ -1,6 +1,6 @@
 package com.team3.wellness_buddy.usersList
 
-import User
+
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
