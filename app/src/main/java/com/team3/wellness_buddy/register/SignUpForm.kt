@@ -447,7 +447,8 @@ fun SignUpForm(
                         state,
                         country,
                         if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else "",
-                        level
+                        level,
+                        category
                     )
                     // Print user details before storing to Firebase
                     Log.d("SignUpForm", user.toString())
@@ -538,7 +539,8 @@ data class User(
     val state: String,
     val country: String,
     val role: String,
-    val level: String?
+    val level: String?,
+    val category:String?
 )
 
 data class CheckboxState(val text: String, val checked: Boolean = false)

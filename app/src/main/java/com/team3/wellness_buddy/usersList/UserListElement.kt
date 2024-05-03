@@ -1,5 +1,6 @@
 package com.team3.wellness_buddy.usersList
 
+import User
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -32,11 +33,8 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
 @SuppressLint("ResourceType")
 @Composable
-fun UserListElement(name:String,description:String){
-
-    val name=name
-    val description=description
-    val height=60.dp
+fun UserListElement(user: User) {
+    val height = 60.dp
     Box(
         modifier = Modifier
             .border(1.dp, Custom_Colors.Primary_bg_lite, RoundedCornerShape(50.dp))
@@ -44,7 +42,7 @@ fun UserListElement(name:String,description:String){
             .padding(5.dp)
             .padding(start = 0.dp)
             .height(height)
-    ){
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -67,11 +65,11 @@ fun UserListElement(name:String,description:String){
                     .padding(start = 8.dp)
             ) {
                 Text(
-                    text = name,
+                    text = "${user.firstName} ${user.lastName}",
                     style = MaterialTheme.typography.subtitle2
                 )
                 Text(
-                    text = description,
+                    text = user.category.orEmpty(),
                     style = MaterialTheme.typography.overline,
                     textAlign = TextAlign.Start
                 )

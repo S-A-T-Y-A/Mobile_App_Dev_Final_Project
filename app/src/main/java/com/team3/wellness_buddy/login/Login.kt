@@ -44,7 +44,7 @@ import com.team3.wellness_buddy.helpers.MyCustomIcon
 import com.team3.wellness_buddy.helpers.rememberImeState
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
-
+import com.team3.wellness_buddy.UserPreferences
 @SuppressLint("ResourceType")
 @Composable
 fun Login(navController: NavController){
@@ -168,7 +168,6 @@ fun Login(navController: NavController){
                         checkUserInFirebase(username, hashString(password), context, navController)
                     }
                 }
-
                 Custom_Button(text = "Sign Up ",Custom_Colors.Primary_bg_lite) {
                     coroutineScope.launch {
                         navController.navigate("signUp")
