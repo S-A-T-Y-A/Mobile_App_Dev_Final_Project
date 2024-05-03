@@ -37,6 +37,7 @@ import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.team3.wellness_buddy.helpers.IconText
 import java.security.MessageDigest
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
