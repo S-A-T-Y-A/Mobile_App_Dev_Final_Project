@@ -7,13 +7,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.team3.wellness_buddy.helpers.MyCustomIcon
+import com.team3.wellness_buddy.helpers.loadMyIcon
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 
 
@@ -34,6 +32,7 @@ fun MyTextField(
     height: Dp =60.dp,
     textFieldColor:Color=Custom_Colors.textFieldColor,
     textColor:Color=Custom_Colors.Primary_bg,
+    maxLines:Int=1
              ){
     val myIconBitmap= iconImage?.let { loadMyIcon(iconImage = it, altText = label+"_icon") }
 
@@ -63,7 +62,8 @@ fun MyTextField(
                 if (myIconBitmap != null) {
                     MyCustomIcon(iconImage = myIconBitmap, iconSize = (height / 3).value.toInt())
                 }
-            }
+            },
+            maxLines = maxLines,
 
         )
     }else{
@@ -86,6 +86,7 @@ fun MyTextField(
                 focusedLabelColor = textFieldColor,
                 textColor = textColor
             ),
+            maxLines = maxLines
 
             )
     }
