@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.team3.wellness_buddy.R
+import com.team3.wellness_buddy.UserPreferences
 import com.team3.wellness_buddy.helpers.MyCustomIcon
 import com.team3.wellness_buddy.helpers.rememberImeState
 import kotlinx.coroutines.launch

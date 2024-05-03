@@ -1,41 +1,37 @@
 package com.team3.wellness_buddy.usersList
 
 
+import User
+
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.Button
+
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,22 +41,24 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowStatusBarHeight
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
-import com.team3.wellness_buddy.register.MyCustomIcon
-import com.team3.wellness_buddy.register.SignUpForm
-import com.team3.wellness_buddy.register.loadMyIcon
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
 import kotlinx.coroutines.launch
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.team3.wellness_buddy.UserPreferences
+
 
 
 @SuppressLint("SuspiciousIndentation", "ResourceType")
@@ -69,7 +67,79 @@ import com.team3.wellness_buddy.UserPreferences
 fun UsersListPage(navController: NavController){
     val coroutineScope = rememberCoroutineScope()
     val context= LocalContext.current
-   Scaffold(
+    val categories = listOf("ENT Specialist", "Orthopedic Specialist", "Gastroenterologist", "Dermatologist", "Neurologist", "Psychiatrist")
+    val ages = listOf("<25", "<35", "<=45", ">=45")
+    val _userList = MutableLiveData<List<User>>()
+    var selectedCategory by remember { mutableStateOf(categories[0]) }
+    var selectedAge by remember { mutableStateOf(ages[0]) }
+    var isDataLoaded by remember { mutableStateOf(false) } // Track whether data is loaded
+
+    fun fetchUserList() {
+        val firebaseRef = FirebaseDatabase.getInstance().getReference("users")
+        firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userList = mutableListOf<User>()
+                for (userSnapshot in snapshot.children) {
+                    val user = userSnapshot.getValue(User::class.java)
+                    user?.let {
+                        userList.add(it)
+                    }
+                }
+                Log.d("UserList",userList.toString())
+                _userList.value = userList
+                isDataLoaded = true
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
+    }
+    LaunchedEffect(true) {
+        fetchUserList()
+    }
+
+
+    @Composable
+    fun FilterRow(
+        categories: List<String>,
+        ages: List<String>
+
+    ) {
+
+        Row {
+            // Category dropdown
+            DropdownMenu(
+                expanded = false,
+                onDismissRequest = { /* Dismiss dropdown on outside click */ }
+            ) {
+                categories.forEach { category ->
+                    DropdownMenuItem(onClick = {
+                        selectedCategory = category
+                    }) {
+                        Text(text = category)
+                    }
+                }
+            }
+
+            // Age dropdown
+            DropdownMenu(
+                expanded = false,
+                onDismissRequest = { /* Dismiss dropdown on outside click */ }
+            ) {
+                ages.forEach { age ->
+                    DropdownMenuItem(onClick = {
+                        selectedAge = age
+                    }) {
+                        Text(text = age)
+                    }
+                }
+            }
+        }
+    }
+
+
+    Scaffold(
         modifier = Modifier
             .padding(
                 top = getWindowStatusBarHeight(),
@@ -108,34 +178,48 @@ fun UsersListPage(navController: NavController){
                 },
 
 
-            )
+                )
         },
 
-       floatingActionButton = {
+        floatingActionButton = {
 
-//           val myIconBitmap= loadMyIcon(iconImage = R.raw.user, altText = "ProfilePicture")
-           FloatingActionButton(
-               onClick = {
-                   coroutineScope.launch {
-                       navController.navigate("login")
-                   }
-               },
-               modifier = Modifier
-                   .size(50.dp),
-               backgroundColor = Color.Black, // Set your desired FAB background color // Set your desired FAB content color
-               elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 8.dp),
-//               shape = CircleShape
-           ) {
+            FloatingActionButton(
+                onClick = {
+                    coroutineScope.launch {
+                        navController.navigate("login")
+                    }
+                },
+                modifier = Modifier
+                    .size(50.dp),
+                backgroundColor = Color.Black, // Set your desired FAB background color // Set your desired FAB content color
+                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 8.dp),
+            ) {
 
-               Image(
-                   modifier = Modifier.
-                   fillMaxSize(),
-                   painter = painterResource(id = R.raw.user), contentDescription ="user" )
-           }
-       },
-       floatingActionButtonPosition = FabPosition.Center,
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+                    painter = painterResource(id = R.raw.user), contentDescription ="user" )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center,
 
-    ) { innerPadding ->
+        ) { innerPadding ->
+        FilterRow(categories, ages)
+        Log.d("UserList1",_userList.toString())
 
-       UserListContent(innerPadding)
-   }}
+        if (!isDataLoaded) {
+            Log.d("UserList1",_userList.toString())
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            _userList.value?.let { userList ->
+                UserListContent(userList = userList, paddingValues = innerPadding)
+            }
+        }
+    }}
