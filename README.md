@@ -80,28 +80,28 @@ So the specific health conditions users face on a yearly basis are going to be t
 ### Our Work
 <div style="display: flex; flex-wrap: wrap; justify-content:flex-start">
   <div style="width: 200px ; padding:20px;">
-    <img src="Logo_View.png" alt="Image 1" style="max-width: 100%;">
+    <img src="Logo_View.png" width=200px alt="Image 1" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px;">
-    <img src="LoginScreen.png" alt="Image 2" style="max-width: 100%;">
+    <img src="LoginScreen.png" width=200px alt="Image 2" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px">
-    <img src="Seeker_Issue_Selection.png" alt="Image 3" style="max-width: 100%;">
+    <img src="Seeker_Issue_Selection.png" width=200px alt="Image 3" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px">
-    <img src="Seeker_Issue_Selection2.png" alt="Image 4" style="max-width: 100%;">
+    <img src="Seeker_Issue_Selection2.png" width=200px alt="Image 4" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px">
-    <img src="Seeker_View_User_List.png" alt="Image 4" style="max-width: 100%;">
+    <img src="Seeker_View_User_List.png" width=200px alt="Image 4" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px">
-    <img src="userProfile_screen.png" alt="Image 4" style="max-width: 100%;">
+    <img src="userProfile_screen.png" width=200px alt="Image 4" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px">
-    <img src="SignInForm1.png" alt="Image 4" style="max-width: 100%;">
+    <img src="SignInForm1.png" width=200px alt="Image 4" style="max-width: 100%;">
   </div>
   <div style="width: 200px;padding:20px">
-    <img src="SigninForm2.png" alt="Image 4" style="max-width: 100%;">
+    <img src="SigninForm2.png" width=200px alt="Image 4" style="max-width: 100%;">
   </div>
   <!-- Add more images as needed -->
 </div>
