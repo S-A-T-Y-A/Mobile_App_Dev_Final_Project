@@ -16,9 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 @Composable
-fun UserListContent(userList: List<User>, paddingValues: PaddingValues) {
+fun UserListContent(userList: List<User>, paddingValues: PaddingValues, navController: NavController) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -30,7 +31,7 @@ fun UserListContent(userList: List<User>, paddingValues: PaddingValues) {
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         userList.forEach { user ->
-            UserListElement(user = user)
+            UserListElement(user = user, navController)
             Spacer(modifier = Modifier.height(10.dp))
         }
         Spacer(modifier = Modifier.height(65.dp))

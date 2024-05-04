@@ -3,6 +3,7 @@ package com.team3.wellness_buddy.usersList
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
+import android.os.Bundle
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -20,8 +21,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.IconText
@@ -47,9 +51,57 @@ import kotlin.math.roundToInt
 
 @SuppressLint("ResourceType")
 @Composable
-fun UserListElement(user: User) {
+fun UserListElement(user: User, navController: NavController) {
 
-
+    var showDialog by remember { mutableStateOf(false) }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = {
+                Text(text = "Patient")
+            },
+            text = {
+                // Display user details here
+                Column {
+                    Text("Name: ${user.firstName} ${user.lastName}")
+                    Text("Gender: ${user.gender}")
+                    Text("Age: ${user.age}")
+                    Text("Email: ${user.email}")
+                    Text("Bio: ${user.bio}")
+                    Text("Address: ${user.street}, ${user.city}, ${user.state}, ${user.country}")
+                    Text("Role: ${user.role}")
+                    if (user.category?.isNotBlank() == true) {
+                        Text("Category: ${user.category}")
+                    }
+                    if (user.level?.isNotBlank() == true) {
+                        Text("Level: ${user.level}")
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = { showDialog = false }
+                ) {
+                    Text("Close")
+                }
+            }
+        )
+    }
+    val categoryListImages = listOf(
+        R.raw.ent,
+        R.raw.orthopedic,
+        R.raw.gastroentrologist,
+        R.raw.dermatoligist,
+        R.raw.neurologist,
+        R.raw.psychiatrist
+    )
+    val categoryList= listOf(
+        "ENT Specialist",
+        "Orthopedic Specialist",
+        "Gastroenterologist",
+        "Dermatologist",
+        "Neurologist",
+        "Psychiatrist")
 
     val categoryDictionary:Map<String, Int> = mapOf(
             "Psychiatrist" to R.raw.psychiatrist,
@@ -75,7 +127,9 @@ fun UserListElement(user: User) {
     val height = 60.dp
     Box(
         modifier = Modifier
-            .clickable(onClick = { Log.d("Element clicked", "$user.email is clicked") })
+            .clickable(onClick = {
+                showDialog = true
+            })
             .fillMaxWidth()
             .padding(5.dp)
             .padding(horizontal = 20.dp)
@@ -142,8 +196,3 @@ fun UserListElement(user: User) {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun showElement(){
-    UserListElement(user = User())
-}

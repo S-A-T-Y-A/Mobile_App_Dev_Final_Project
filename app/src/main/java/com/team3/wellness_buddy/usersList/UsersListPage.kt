@@ -95,9 +95,13 @@ fun UsersListPage(navController: NavController){
                             selectedCategories?.contains(it.category.toString()) == true;
                         Log.d("Log Seeker",it.role)
                         if(role == "Seeker" && it.role != "Seeker"){
-                            if(selectedCategories != null && selectedCategories.isNotEmpty() &&
-                                isCategoryExist){
-                                userList.add(it)
+                            if(selectedCategories != null && selectedCategories.isNotEmpty() ){
+                                if(isCategoryExist){
+                                    userList.add(it)
+                                }
+                                else{
+
+                                }
                             }
                             else{
                                 userList.add(it)
@@ -289,14 +293,8 @@ fun UsersListPage(navController: NavController){
             }
         } else {
             finalUserList.value?.let { userList ->
-                UserListContent(userList = userList, paddingValues = innerPadding)
+                UserListContent(userList = userList, paddingValues = innerPadding, navController)
             }
-
-
         }
-
-
-
-
     }
 }
