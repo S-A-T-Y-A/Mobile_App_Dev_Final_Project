@@ -1,6 +1,6 @@
 <div style="display:flex">
   <span style="margin-right:20px">
-    <img src="./images/wb_logo.png"  width="100px" />
+    <img src="app/src/main/res/drawable/wb_logo.png"  width="100px" />
   </span> 
   <h1>Wellness Buddy</h1>
 </div>
