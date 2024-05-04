@@ -3,9 +3,15 @@ package com.team3.wellness_buddy
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -81,9 +87,24 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WellnessBuddyApp() {
+    val context = LocalContext.current
     val navController = rememberNavController()
+    val role = UserPreferences.getUserRole(context)
+    val email = UserPreferences.getEmail(context)
+    var startDestination by remember { mutableStateOf("") }
+    if (email != null && email.isNotEmpty()) {
+    Log.d("Current Role",role.toString())
+        if(role.toString() == "Coach"){
+            startDestination = "home"
+        }
+        else{
+            startDestination = "category_explorer"
+        }
+    } else{
+        startDestination = "login"
+    }
 
-    NavHost(navController = navController, startDestination = "home") {
+    NavHost(navController = navController, startDestination = startDestination) {
         composable("login") { Login(navController) }
         composable("home") { UsersListPage(navController) }
         composable("signUp") { SignUpPage(navController) }
