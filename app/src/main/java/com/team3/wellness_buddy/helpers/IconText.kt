@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import com.team3.wellness_buddy.helpers.MyCustomIcon
@@ -19,15 +20,16 @@ fun IconText(
     modifier: Modifier,
     iconImage:Int,
     iconText:String,
-    text:String
+    text:String,
+    textColor:Color=Color.Black
 
 ){
     val myIconBitmap= loadMyIcon(iconImage = iconImage, altText = iconText+"_icon")
     Row(
-        Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+        modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
     ){
         MyCustomIcon(iconImage = myIconBitmap)
-        Spacer(modifier = modifier.width(20.dp))
-        Text(text = text, fontWeight = Bold)
+        Spacer(modifier = Modifier.width(20.dp))
+        Text(text = text, fontWeight = Bold, color = textColor)
     }
 }
