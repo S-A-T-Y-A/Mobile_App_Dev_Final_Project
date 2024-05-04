@@ -121,8 +121,11 @@ The Wellness Buddy app implements a user-oriented platform that promotes individ
 
 ### Resources
 
-For more details, please refer to our [detailed documentation](https://docs.google.com/document/d/1C8_9gd_1M1Xrq3yuvweFGy80IgsbAsMhczvUfKRwSqI).
+This is our [Idea Proposal](https://docs.google.com/document/d/1C8_9gd_1M1Xrq3yuvweFGy80IgsbAsMhczvUfKRwSqI).
 
+For more details, please refer to our  [Final Documentation](https://docs.google.com/document/d/1EEotQDDc-4aDZyCh7jExew_is8e8B4NEQR0w0D4r9kk/edit).
+
+You can download [APK](https://github.com/S-A-T-Y-A/Wellness-Buddy/blob/main/WellnessBuddy.apk) here.
 
 ### Contributers
 
