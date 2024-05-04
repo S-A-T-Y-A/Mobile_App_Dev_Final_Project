@@ -306,7 +306,13 @@ fun SignUpForm(
         var category by remember {
             mutableStateOf("")
         }
-        var category_list= listOf("Psychiatrist","Dermatologist","Nutrient")
+        val categoryList= listOf(
+            "ENT Specialist",
+            "Orthopedic Specialist",
+            "Gastroenterologist",
+            "Dermatologist",
+            "Neurologist",
+            "Psychiatrist")
 
         var level by remember {
             mutableStateOf("")
@@ -326,7 +332,7 @@ fun SignUpForm(
                     modifier = Modifier,
                     label = "Category",
                     value = category,
-                    menuItems = category_list,
+                    menuItems = categoryList,
                     onValueChange = {category=it},
                     iconImage = R.raw.question
                 )
