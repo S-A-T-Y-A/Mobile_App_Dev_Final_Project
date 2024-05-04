@@ -79,25 +79,25 @@ So the specific health conditions users face on a yearly basis are going to be t
 
 ### Our Work
 <div style="display: flex; flex-wrap: wrap;">
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="Logo_View.png" alt="Image 1" style="max-width: 100%;">
   </div>
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="LoginScreen" alt="Image 2" style="max-width: 100%;">
   </div>
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="Seeker_Issue_Selection.jpg" alt="Image 3" style="max-width: 100%;">
   </div>
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="Seeker_Issue_Selection2.jpg" alt="Image 4" style="max-width: 100%;">
   </div>
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="Seeker_View_User_List.jpg" alt="Image 4" style="max-width: 100%;">
   </div>
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="SignInForm1.jpg" alt="Image 4" style="max-width: 100%;">
   </div>
-  <div style="width: 50%;">
+  <div style="width: 500px;">
     <img src="SigninForm2.jpg" alt="Image 4" style="max-width: 100%;">
   </div>
   <!-- Add more images as needed -->
