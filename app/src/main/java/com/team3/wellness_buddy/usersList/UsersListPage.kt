@@ -209,7 +209,7 @@ fun UsersListPage(navController: NavController){
         },
 
         floatingActionButton = {
-
+            val userEmail=UserPreferences.getEmail(context)
             FloatingActionButton(
                 onClick = {
                     coroutineScope.launch {
@@ -221,10 +221,12 @@ fun UsersListPage(navController: NavController){
                 backgroundColor = Color.Black, // Set your desired FAB background color // Set your desired FAB content color
                 elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 8.dp),
             ) {
-
-                Image(
-                    modifier = Modifier.fillMaxSize(),
-                    painter = painterResource(id = R.raw.user), contentDescription ="user" )
+                if (userEmail != null) {
+                    ProfilePicture(email = userEmail, sizeDp = 50.dp.value.toInt())
+                }
+//                Image(
+//                    modifier = Modifier.fillMaxSize(),
+//                    painter = painterResource(id = R.raw.user), contentDescription ="user" )
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -236,9 +238,13 @@ fun UsersListPage(navController: NavController){
     { innerPadding ->
 
 
+        Log.d("User email",""+UserPreferences.getEmail(context))
+
         if(isMenuClicked){
 
-            Box(modifier = Modifier.fillMaxWidth().background(Color.Black),
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Black),
                 contentAlignment = Alignment.TopEnd
 
             ) {

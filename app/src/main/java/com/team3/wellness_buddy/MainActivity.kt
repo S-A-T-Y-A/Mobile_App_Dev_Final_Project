@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
 fun WellnessBuddyApp() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "category_explorer") {
+    NavHost(navController = navController, startDestination = "home") {
         composable("login") { Login(navController) }
         composable("home") { UsersListPage(navController) }
         composable("signUp") { SignUpPage(navController) }

@@ -185,7 +185,6 @@ fun Login(navController: NavController){
             Spacer(modifier = Modifier.height(16.dp))
 
             // Forgot password link
-            Row {
                 
             Text(
                 text = "Forgot Password?",
@@ -193,19 +192,6 @@ fun Login(navController: NavController){
                 modifier = Modifier.clickable { /* Handle forgot password */ }
             )
 
-            Spacer(modifier = Modifier.width(16.dp))
-
-            // Back to users
-            Text(
-                text = "Back To Coaches",
-                color = Color.Blue,
-                modifier = Modifier.clickable {
-                    coroutineScope.launch {
-                        navController.navigate("home")
-                    }
-                }
-            )
-            }
         }
         }
     }
