@@ -19,17 +19,20 @@ import com.team3.wellness_buddy.register.SignUpPage
 
 import com.team3.wellness_buddy.usersList.UsersListPage
 import com.google.firebase.FirebaseApp
+import com.google.gson.Gson
 import com.team3.wellness_buddy.about.AboutPage
 import com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage
 import com.team3.wellness_buddy.login.Login
-
+import com.team3.wellness_buddy.usersList.User
 object UserPreferences {
     private const val PREF_NAME = "user_preferences"
     private const val KEY_FIRST_NAME = "first_name"
     private const val KEY_LAST_NAME = "last_name"
     private const val KEY_EMAIL = "email"
     private const val KEY_ROLE = "role"
+
     private const val KEY_USER_SELECTED_CATEGORIES = "user_categories_selected_fetched"
+
 
     fun saveSelectedCategories(categories: Set<String>, context: Context) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -56,6 +59,7 @@ object UserPreferences {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         return sharedPreferences.getString(KEY_FIRST_NAME, null)
     }
+
     fun getUserRole(context: Context): String? {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         return sharedPreferences.getString(KEY_ROLE, null)

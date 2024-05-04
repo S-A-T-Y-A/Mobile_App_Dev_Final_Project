@@ -1,0 +1,15 @@
+Index: .gradle/config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Sat May 04 02:55:08 EDT 2024\njava.home=C\\:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/config.properties b/.gradle/config.properties
+--- a/.gradle/config.properties	(revision 9c0e50f16b7ae6a6d27b3a8c1466287d129619f8)
++++ b/.gradle/config.properties	(date 1714817240445)
+@@ -1,2 +1,2 @@
+-#Sat May 04 02:55:08 EDT 2024
+-java.home=C\:\\Program Files\\Android\\Android Studio\\jbr
++#Sat May 04 06:04:59 EDT 2024
++java.home=/Applications/Android Studio.app/Contents/jbr/Contents/Home

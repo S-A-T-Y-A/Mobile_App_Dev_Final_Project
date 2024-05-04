@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,6 +42,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.team3.wellness_buddy.R
+import com.team3.wellness_buddy.UserPreferences
 import com.team3.wellness_buddy.helpers.IconText
 import com.team3.wellness_buddy.helpers.MyCustomIcon
 import com.team3.wellness_buddy.login.Custom_Button
@@ -50,26 +52,27 @@ import kotlinx.coroutines.launch
 @SuppressLint("ResourceType")
 
 @Composable
-fun UserProfile( navController: NavController){
+fun UserProfile(navController: NavController, profileView:Boolean=true, user:User,isCurrent:Boolean=false,onProfileViewChange: (Boolean) -> Unit){
 
     val coroutineScope = rememberCoroutineScope()
 
-    val user = User(
-        firstName = "John",
-        lastName = "Doe",
-        gender = "Male",
-        age = "30",
-        email = "john.doe@example.com",
-        bio = "Passionate about technology and coding. Love hiking and exploring new places.",
-        street = "123 Main Street",
-        city = "Anytown",
-        zipCode = "12345",
-        state = "California",
-        country = "USA",
-        role = "Coach",
-        level = "Expert",
-        category = "ENT Specialist"
-    )
+//    val user = User(
+//        firstName = "John",
+//        lastName = "Doe",
+//        gender = "Male",
+//        age = "30",
+//        email = "john.doe@example.com",
+//        bio = "Passionate about technology and coding. Love hiking and exploring new places.",
+//        street = "123 Main Street",
+//        city = "Anytown",
+//        zipCode = "12345",
+//        state = "California",
+//        country = "USA",
+//        role = "Coach",
+//        level = "Expert",
+//        category = "ENT Specialist"
+//    )
+
 var add=user.street+", "+user.zipCode+", "+user.state+"\n"+user.country
     val categoryDictionary:Map<String, Int> = mapOf(
         "Psychiatrist" to R.raw.psychiatrist,
@@ -82,16 +85,15 @@ var add=user.street+", "+user.zipCode+", "+user.state+"\n"+user.country
 
     )
     Box(modifier = Modifier
+
         .fillMaxSize()
         .background(Color.Transparent),
         contentAlignment = Alignment.Center
        )
     {
         Box(modifier = Modifier
-
-            .fillMaxHeight(0.5f)
-            .fillMaxWidth(0.9f)
-            .background(Custom_Colors.Primary_bg_lite, RoundedCornerShape(20.dp))){
+            .fillMaxSize()
+            .background(Custom_Colors.Primary_bg_lite)){
 
 
 
@@ -184,13 +186,11 @@ Column {
     horizontalArrangement = Arrangement.Center){
         Button(
             onClick = {
-                coroutineScope.launch {
-                    navController.popBackStack()
-                }
+                onProfileViewChange(!profileView)
             },
             modifier = Modifier
                 .height(IntrinsicSize.Min)
-                .padding(end = 8.dp)
+                .padding(end = 8.dp, bottom = 15.dp)
                 .width(100.dp),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
         ) {
@@ -210,8 +210,8 @@ Column {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun showProfile(){
-    UserProfile(navController = rememberNavController())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun showProfile(){
+//    UserProfile(navController = rememberNavController())
+//}

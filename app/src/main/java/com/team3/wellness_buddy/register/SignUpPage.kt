@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.team3.wellness_buddy.UserPreferences
 import com.team3.wellness_buddy.helpers.getWindowStatusBarHeight
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
+import com.team3.wellness_buddy.usersList.User
 import kotlinx.coroutines.launch
 
 
