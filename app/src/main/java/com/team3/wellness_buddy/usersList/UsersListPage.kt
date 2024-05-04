@@ -5,23 +5,19 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 
 import androidx.compose.foundation.layout.Box
 
 
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.DrawerValue
@@ -40,7 +36,6 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberDrawerState
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,13 +45,10 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowStatusBarHeight
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
@@ -97,14 +89,28 @@ fun UsersListPage(navController: NavController){
                 val user = userSnapshot.getValue(User::class.java)
                     user?.let {
                         val selectedCategories = UserPreferences.getSelectedCategories(context);
+                        val role = UserPreferences.getUserRole(context);
+                        Log.d("UserList 12", role.toString())
                         val isCategoryExist =
                             selectedCategories?.contains(it.category.toString()) == true;
-                        if (selectedCategories != null) {
-                            if (selectedCategories.isNotEmpty() && isCategoryExist) {
-
+                        Log.d("Log Seeker",it.role)
+                        if(role == "Seeker" && it.role != "Seeker"){
+                            if(selectedCategories != null && selectedCategories.isNotEmpty() &&
+                                isCategoryExist){
                                 userList.add(it)
                             }
+                            else{
+                                userList.add(it)
+                            }
+
                         }
+                        else if (role == "Coach" && it.role != "Coach"){
+                            userList.add(it)
+                        }
+                        else{
+
+                        }
+
                     }
                 }
                 isDataLoaded = true
@@ -248,7 +254,11 @@ fun UsersListPage(navController: NavController){
                     }) {
                         Text(text = "Profile")
                     }
-                    DropdownMenuItem(onClick = { /*TODO*/ }) {
+                    DropdownMenuItem(onClick = {
+                        UserPreferences.saveSelectedCategories(emptySet(), context)
+                        UserPreferences.saveUserInfo(context,"","","","")
+                        navController.navigate("login")
+                    }) {
                         Text(text = "Logout")
                     }
 

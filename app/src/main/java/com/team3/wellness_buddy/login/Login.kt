@@ -225,10 +225,16 @@ fun checkUserInFirebase(username: String, password: String, context: android.con
                         Log.d("LoginForm",user.toString())
                         if (user?.hashedPassword == password) {
                             Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
-                            UserPreferences.saveUserInfo(context, user.firstName, user.lastName, user.email)
+                            UserPreferences.saveUserInfo(context, user.firstName, user.lastName, user.email, user.role)
 
                             Log.d("LoginForm","loggedIn" )
-                            navController.navigate("home")
+                            if(user.role == "Seeker"){
+                                navController.navigate("category_explorer")
+                            }
+                            else if(user.role == "Coach"){
+                                navController.navigate("home")
+                            }
+
                             return
                         }
                     }
@@ -265,7 +271,8 @@ data class User(
     val email: String = "",
     val hashedPassword: String = "",
     val firstName: String = "",
-    val lastName: String = ""
+    val lastName: String = "",
+    val role: String = "",
 )
 
 @Composable
