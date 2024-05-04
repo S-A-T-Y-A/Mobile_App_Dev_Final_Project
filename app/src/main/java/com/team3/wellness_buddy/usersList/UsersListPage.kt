@@ -238,10 +238,14 @@ fun UsersListPage(navController: NavController){
             ) {
                 DropdownMenu(expanded = true, onDismissRequest = { isMenuClicked = false },
                     modifier=Modifier.fillMaxWidth()) {
-                    DropdownMenuItem(onClick = { /*TODO*/ }, modifier = Modifier) {
+                    DropdownMenuItem(onClick = {
+                        navController.navigate("about")
+                    }, modifier = Modifier) {
                         Text(text = "About")
                     }
-                    DropdownMenuItem(onClick = { /*TODO*/ }) {
+                    DropdownMenuItem(onClick = {
+
+                    }) {
                         Text(text = "Profile")
                     }
                     DropdownMenuItem(onClick = { /*TODO*/ }) {
