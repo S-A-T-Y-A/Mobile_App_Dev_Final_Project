@@ -5,16 +5,26 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 
 import androidx.compose.foundation.layout.Box
+
+
+
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.DrawerValue
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.FabPosition
@@ -27,6 +37,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.rememberDrawerState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -39,6 +50,7 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -72,6 +84,10 @@ fun UsersListPage(navController: NavController){
     var selectedCategory by remember { mutableStateOf(categories[0]) }
     var selectedAge by remember { mutableStateOf(ages[0]) }
     var isDataLoaded by remember { mutableStateOf(false) } // Track whether data is loaded
+
+    var isMenuClicked by remember { mutableStateOf(false) }
+
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     var firebaseRef = FirebaseDatabase.getInstance().getReference("users")
     firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -170,7 +186,10 @@ fun UsersListPage(navController: NavController){
                 backgroundColor = Custom_Colors.Primary_bg,
                 contentColor = Color.White,
                 actions = {
-                    IconButton(onClick = { /* Handle left icon click */ }) {
+                    IconButton(onClick = {
+                        isMenuClicked=!isMenuClicked
+                        Log.d("IsMenuClicked","$isMenuClicked")
+                    }) {
                         Icon(
                             Icons.Filled.Menu,
                             contentDescription = "Menu",
@@ -204,7 +223,36 @@ fun UsersListPage(navController: NavController){
         },
         floatingActionButtonPosition = FabPosition.Center,
 
-        ) { innerPadding ->
+
+
+
+        )
+    { innerPadding ->
+
+
+        if(isMenuClicked){
+
+            Box(modifier = Modifier.fillMaxWidth().background(Color.Black),
+                contentAlignment = Alignment.TopEnd
+
+            ) {
+                DropdownMenu(expanded = true, onDismissRequest = { isMenuClicked = false },
+                    modifier=Modifier.fillMaxWidth()) {
+                    DropdownMenuItem(onClick = { /*TODO*/ }, modifier = Modifier) {
+                        Text(text = "About")
+                    }
+                    DropdownMenuItem(onClick = { /*TODO*/ }) {
+                        Text(text = "Profile")
+                    }
+                    DropdownMenuItem(onClick = { /*TODO*/ }) {
+                        Text(text = "Logout")
+                    }
+
+                }
+
+            }
+        }
+
         FilterRow(categories, ages)
         Log.d("UserList1",finalUserList.toString())
 
@@ -223,5 +271,12 @@ fun UsersListPage(navController: NavController){
             finalUserList.value?.let { userList ->
                 UserListContent(userList = userList, paddingValues = innerPadding)
             }
+
+
         }
-    }}
+
+
+
+
+    }
+}
