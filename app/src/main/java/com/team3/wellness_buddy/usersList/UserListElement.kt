@@ -95,8 +95,9 @@ fun UserListElement(user: User, navController: NavController) {
     Box(
         modifier = Modifier
             .clickable(onClick = {
-                profileView = true
-            })
+                profileView=true
+            }
+            )
             .fillMaxWidth()
             .padding(5.dp)
             .padding(horizontal = 20.dp)

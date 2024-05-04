@@ -65,11 +65,59 @@ So the specific health conditions users face on a yearly basis are going to be t
 
 <p style="text-align:justify"> Users (X) can reach out to coaches (Y) through our platform. </p>
 
+
+### Technology Used
+<ul>
+<li>Used Jetpack</li>
+<li>Used Kotlin for creating the application.</li>
+<li>Gradle for package management</li>
+<li>And for databases we have used firebase to handle realtime data.</li>
+<li>For random avatar Api: <a href="https://www.gravatar.com/avatar/">https://www.gravatar.com/avatar/ </a></li>
+<li>Firebase Api <a href="https://wellness-buddy-3bf23-default-rtdb.firebaseio.com/
+">https://wellness-buddy-3bf23-default-rtdb.firebaseio.com/</a></li>
+</ul>
+
+### Our Work
+<div style="display: flex; flex-wrap: wrap; justify-content:flex-start">
+  <div style="width: 200px ; padding:20px;">
+    <img src="Logo_View.png" alt="Image 1" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px;">
+    <img src="LoginScreen.png" alt="Image 2" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px">
+    <img src="Seeker_Issue_Selection.png" alt="Image 3" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px">
+    <img src="Seeker_Issue_Selection2.png" alt="Image 4" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px">
+    <img src="Seeker_View_User_List.png" alt="Image 4" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px">
+    <img src="userProfile_screen.png" alt="Image 4" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px">
+    <img src="SignInForm1.png" alt="Image 4" style="max-width: 100%;">
+  </div>
+  <div style="width: 200px;padding:20px">
+    <img src="SigninForm2.png" alt="Image 4" style="max-width: 100%;">
+  </div>
+  <!-- Add more images as needed -->
+</div>
+
+
 ### Conclusion:
 
 <p style="text-align:justify">
 The Wellness Buddy app implements a user-oriented platform that promotes individuals to find access to either certified advisors or student advisors. Features like the direct communication, and the feedback system from users are the strategies the app uses to help in the wellness journey of the users. The aim of our organization is to provide everybody with professional and student wellness services that are quick and easy to use and help people be more confident with their health and successfully attain their wellness targets.
 </p>
+
+
+### Resources
+
+For more details, please refer to our [detailed documentation](https://docs.google.com/document/d/1C8_9gd_1M1Xrq3yuvweFGy80IgsbAsMhczvUfKRwSqI).
+
 
 ### Contributers
 
@@ -91,7 +139,3 @@ The Wellness Buddy app implements a user-oriented platform that promotes individ
   </a></td>
 </tr>
 </table>
-
-### Additional Resources
-
-For more details, please refer to our [detailed documentation](https://docs.google.com/document/d/1C8_9gd_1M1Xrq3yuvweFGy80IgsbAsMhczvUfKRwSqI).
