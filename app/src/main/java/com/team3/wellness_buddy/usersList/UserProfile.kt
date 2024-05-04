@@ -100,41 +100,41 @@ var add=user.street+", "+user.zipCode+", "+user.state+"\n"+user.country
 
 Column {
 
-            Row(modifier = Modifier
-                .padding(top = 30.dp)
-                .padding(horizontal = 30.dp)
-                .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                ) {
-//                ProfilePicture(email = user.email, sizeDp = 100.dp.value.toInt())
-                Image(painter = painterResource(id = R.raw.user
-                ), contentDescription ="User Profile" , modifier = Modifier.size(60.dp))
-                Spacer(modifier = Modifier.width(20.dp))
-                val isCoach=if(user.role.equals("Coach"))true else false
-                var isExpert=if(user.level.equals("Expert") && isCoach) true else false
-                var levelIcon=if(isExpert) R.raw.expert else R.raw.student
+//            Row(modifier = Modifier
+//                .padding(top = 30.dp)
+//                .padding(horizontal = 30.dp)
+//                .fillMaxWidth(),
+//                verticalAlignment = Alignment.CenterVertically,
+//                ) {
+////                ProfilePicture(email = user.email, sizeDp = 100.dp.value.toInt())
+//                Image(painter = painterResource(id = R.raw.user
+//                ), contentDescription ="User Profile" , modifier = Modifier.size(60.dp))
+//                Spacer(modifier = Modifier.width(20.dp))
+//                val isCoach=if(user.role.equals("Coach"))true else false
+//                var isExpert=if(user.level.equals("Expert") && isCoach) true else false
+//                var levelIcon=if(isExpert) R.raw.expert else R.raw.student
+//
+//                Column(modifier = Modifier.weight(1f)) {
+//                    Text(text = user.firstName+" "+user.lastName, textAlign = TextAlign.Start, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White)
+//
+//                    if(isCoach)
+//                        user.category?.let { Text(text = it, modifier = Modifier.padding(top = 5.dp), color = Color.White) }
+//                }
+//
+//               if(isCoach){
+//                   val categoryIcon= categoryDictionary[user.category]
+//                   if (categoryIcon != null) {
+//                       MyCustomIcon(iconImage = categoryIcon
+//                       )
+//                   }
+//               }
+//                Spacer(modifier = Modifier.width(20.dp))
+//
+//                MyCustomIcon(iconImage = levelIcon, modifier = Modifier.weight(0.2f))
+//
+//            }
 
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(text = user.firstName+" "+user.lastName, textAlign = TextAlign.Start, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White)
-
-                    if(isCoach)
-                        user.category?.let { Text(text = it, modifier = Modifier.padding(top = 5.dp), color = Color.White) }
-                }
-
-               if(isCoach){
-                   val categoryIcon= categoryDictionary[user.category]
-                   if (categoryIcon != null) {
-                       MyCustomIcon(iconImage = categoryIcon
-                       )
-                   }
-               }
-                Spacer(modifier = Modifier.width(20.dp))
-
-                MyCustomIcon(iconImage = levelIcon, modifier = Modifier.weight(0.2f))
-
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row (modifier = Modifier
                 .padding(top = 30.dp)
