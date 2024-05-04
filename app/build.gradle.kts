@@ -93,6 +93,7 @@ dependencies {
     //profile picture api
     implementation ("io.coil-kt:coil-compose:1.4.0")
 
+    implementation ("com.google.code.gson:gson:2.8.8")
 
 
 }

@@ -52,41 +52,8 @@ import kotlin.math.roundToInt
 @SuppressLint("ResourceType")
 @Composable
 fun UserListElement(user: User, navController: NavController) {
+    var profileView by remember { mutableStateOf(false) }
 
-    var showDialog by remember { mutableStateOf(false) }
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = {
-                Text(text = "Patient")
-            },
-            text = {
-                // Display user details here
-                Column {
-                    Text("Name: ${user.firstName} ${user.lastName}")
-                    Text("Gender: ${user.gender}")
-                    Text("Age: ${user.age}")
-                    Text("Email: ${user.email}")
-                    Text("Bio: ${user.bio}")
-                    Text("Address: ${user.street}, ${user.city}, ${user.state}, ${user.country}")
-                    Text("Role: ${user.role}")
-                    if (user.category?.isNotBlank() == true) {
-                        Text("Category: ${user.category}")
-                    }
-                    if (user.level?.isNotBlank() == true) {
-                        Text("Level: ${user.level}")
-                    }
-                }
-            },
-            confirmButton = {
-                Button(
-                    onClick = { showDialog = false }
-                ) {
-                    Text("Close")
-                }
-            }
-        )
-    }
     val categoryListImages = listOf(
         R.raw.ent,
         R.raw.orthopedic,
@@ -128,7 +95,7 @@ fun UserListElement(user: User, navController: NavController) {
     Box(
         modifier = Modifier
             .clickable(onClick = {
-                showDialog = true
+                profileView = true
             })
             .fillMaxWidth()
             .padding(5.dp)
@@ -192,7 +159,16 @@ fun UserListElement(user: User, navController: NavController) {
 
 
         }
+
+
+    }
+    if (profileView) {
+        UserProfile(navController = navController,profileView=profileView, user = user){
+            profileView=it
+        }
     }
 }
+
+
 
 

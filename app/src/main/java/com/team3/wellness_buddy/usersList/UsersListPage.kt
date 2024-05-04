@@ -3,7 +3,6 @@ package com.team3.wellness_buddy.usersList
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 
 import androidx.compose.foundation.layout.Box
@@ -46,14 +45,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.MutableLiveData
-import com.team3.wellness_buddy.R
 import com.team3.wellness_buddy.helpers.getWindowStatusBarHeight
 import com.team3.wellness_buddy.helpers.getWindowToolBarHeight
 import com.team3.wellness_buddy.ui.theme.Custom_Colors
-import kotlinx.coroutines.launch
 import androidx.navigation.NavController
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -81,6 +77,9 @@ fun UsersListPage(navController: NavController){
 
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
+    val userEmail=UserPreferences.getEmail(context)
+    var currentUser=User();
+    var profileView by remember { mutableStateOf(false) }
     var firebaseRef = FirebaseDatabase.getInstance().getReference("users")
     firebaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
@@ -213,12 +212,33 @@ fun UsersListPage(navController: NavController){
         },
 
         floatingActionButton = {
-            val userEmail=UserPreferences.getEmail(context)
+
             FloatingActionButton(
                 onClick = {
-                    coroutineScope.launch {
-                        navController.navigate("login")
-                    }
+//                    coroutineScope.launch {
+//                        navController.navigate("login")
+//                    }
+//                    firebaseRef.orderByChild("email").equalTo(UserPreferences.getEmail(context)).addListenerForSingleValueEvent (
+//                        object : ValueEventListener {
+//                            override fun onDataChange(snapshot: DataSnapshot) {
+//                                if (snapshot.exists()) {
+//                                    for (userSnapshot in snapshot.children) {
+//                                        val user = userSnapshot.getValue(User::class.java)
+//                                        Log.d("qeq",user.toString())
+//                                        if (user != null) {
+//                                              currentUser=user
+//                                        }
+//
+//                                    }
+//                                }
+//                            }
+//
+//                            override fun onCancelled(error: DatabaseError) {
+//                                Log.d("LoginForm","Error" )
+//                            }
+//                        }
+//                    )
+
                 },
                 modifier = Modifier
                     .size(50.dp),
@@ -243,7 +263,11 @@ fun UsersListPage(navController: NavController){
     { innerPadding ->
 
 
+
         Log.d("User email",""+UserPreferences.getEmail(context))
+
+
+
 
         if(isMenuClicked){
 
@@ -259,11 +283,6 @@ fun UsersListPage(navController: NavController){
                         navController.navigate("about")
                     }, modifier = Modifier) {
                         Text(text = "About")
-                    }
-                    DropdownMenuItem(onClick = {
-
-                    }) {
-                        Text(text = "Profile")
                     }
                     DropdownMenuItem(onClick = {
                         UserPreferences.saveSelectedCategories(emptySet(), context)
@@ -297,5 +316,7 @@ fun UsersListPage(navController: NavController){
                 UserListContent(userList = userList, paddingValues = innerPadding, navController)
             }
         }
+
+
     }
 }
