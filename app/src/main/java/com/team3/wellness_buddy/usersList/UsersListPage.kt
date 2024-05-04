@@ -225,7 +225,8 @@ fun UsersListPage(navController: NavController){
                 backgroundColor = Color.Black, // Set your desired FAB background color // Set your desired FAB content color
                 elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 8.dp),
             ) {
-                if (userEmail != null) {
+                if (userEmail != null)
+                {
                     ProfilePicture(email = userEmail, sizeDp = 50.dp.value.toInt())
                 }
 //                Image(
