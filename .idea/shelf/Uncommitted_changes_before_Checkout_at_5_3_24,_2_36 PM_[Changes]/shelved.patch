@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.team3.wellness_buddy\n\n\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.compose.setContent\nimport androidx.compose.runtime.Composable\nimport androidx.navigation.compose.NavHost\nimport androidx.navigation.compose.composable\nimport androidx.navigation.compose.rememberNavController\nimport com.team3.wellness_buddy.register.SignUpPage\n\nimport com.team3.wellness_buddy.usersList.UsersListPage\nimport com.google.firebase.FirebaseApp\nimport com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage\nimport com.team3.wellness_buddy.categoryexplorer.Show\nimport com.team3.wellness_buddy.login.Login\n\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContent {\n            Show()\n            WellnessBuddyApp()\n            FirebaseApp.initializeApp(this)\n        }\n    }\n}\n\n\n\n@Composable\nfun WellnessBuddyApp() {\n    val navController = rememberNavController()\n\n    NavHost(navController = navController, startDestination = \"category_explorer\") {\n        composable(\"login\") { Login(navController) }\n        composable(\"home\") { UsersListPage(navController) }\n        composable(\"signUp\") { SignUpPage(navController) }\n        composable(\"category_explorer\"){\n            CategorySelectionPage()\n        }\n    }\n\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
+@@ -34,7 +34,7 @@
+ fun WellnessBuddyApp() {
+     val navController = rememberNavController()
+ 
+-    NavHost(navController = navController, startDestination = "category_explorer") {
++    NavHost(navController = navController, startDestination = "login") {
+         composable("login") { Login(navController) }
+         composable("home") { UsersListPage(navController) }
+         composable("signUp") { SignUpPage(navController) }
