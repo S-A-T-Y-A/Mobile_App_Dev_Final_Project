@@ -22,9 +22,10 @@ object UserPreferences {
     private const val KEY_FIRST_NAME = "first_name"
     private const val KEY_LAST_NAME = "last_name"
     private const val KEY_EMAIL = "email"
+    private const val KEY_ROLE = "role"
     private const val KEY_USER_SELECTED_CATEGORIES = "user_categories_selected_fetched"
 
-    fun saveSelectedCategories(categories: MutableSet<String>, context: Context) {
+    fun saveSelectedCategories(categories: Set<String>, context: Context) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putStringSet(KEY_USER_SELECTED_CATEGORIES, categories)
@@ -35,18 +36,23 @@ object UserPreferences {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         return sharedPreferences.getStringSet(KEY_USER_SELECTED_CATEGORIES,emptySet())
     }
-    fun saveUserInfo(context: Context, firstName: String?, lastName: String?, email: String) {
+    fun saveUserInfo(context: Context, firstName: String?, lastName: String?, email: String, role: String?) {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString(KEY_FIRST_NAME, firstName)
         editor.putString(KEY_LAST_NAME, lastName)
         editor.putString(KEY_EMAIL, email)
+        editor.putString(KEY_ROLE, role)
         editor.apply()
     }
 
     fun getFirstName(context: Context): String? {
         val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         return sharedPreferences.getString(KEY_FIRST_NAME, null)
+    }
+    fun getUserRole(context: Context): String? {
+        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(KEY_ROLE, null)
     }
 
     fun getLastName(context: Context): String? {

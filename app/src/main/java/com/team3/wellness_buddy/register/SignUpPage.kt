@@ -66,8 +66,8 @@ fun SignUpPage(navController: NavController){
         SignUpForm(
             paddingValues=innerPadding,
             navController,
-            onSaveUserInfo = { firstName, lastName, email ->
-                UserPreferences.saveUserInfo(context, firstName, lastName, email)
+            onSaveUserInfo = { firstName, lastName, email, role ->
+                UserPreferences.saveUserInfo(context, firstName, lastName, email, role)
             }
         )
     }

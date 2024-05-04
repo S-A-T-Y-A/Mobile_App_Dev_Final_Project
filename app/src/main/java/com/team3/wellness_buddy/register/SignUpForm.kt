@@ -44,8 +44,7 @@ import java.security.MessageDigest
 fun SignUpForm(
     paddingValues: PaddingValues,
     navController: NavController,
-    onSaveUserInfo: (String, String, String) -> Unit
-
+    onSaveUserInfo: (String, String, String, String) -> Unit
 ) {
 
     lateinit var firebaseRef : DatabaseReference
@@ -285,7 +284,7 @@ fun SignUpForm(
                             if (index == i) CheckboxState(state.text, isChecked)
                             else CheckboxState(state.text, false)
                         }
-
+                        Log.d("Coach State",checkboxState.text)
                         // If "Coach" checkbox is checked, set coachChecked to true
                         if (checkboxState.text == "Coach") {
                             coachChecked = isChecked
@@ -463,8 +462,14 @@ fun SignUpForm(
                                 } else {
                                     // Email does not exist, save the new user data
                                     firebaseRef.push().setValue(user).addOnSuccessListener {
-                                        onSaveUserInfo(firstName, lastName, email)
-                                        navController.navigate("home")
+                                        onSaveUserInfo(firstName, lastName, email, if (seekerChecked) "Seeker" else if (coachChecked) "Coach" else "",)
+                                        if (seekerChecked) {
+                                            navController.navigate("category_explorer")
+                                        } else {
+                                            navController.navigate("home")
+                                        }
+
+
                                     }
                                         .addOnFailureListener {
                                             dialogMessage.value = "Error: ${it.message}"
