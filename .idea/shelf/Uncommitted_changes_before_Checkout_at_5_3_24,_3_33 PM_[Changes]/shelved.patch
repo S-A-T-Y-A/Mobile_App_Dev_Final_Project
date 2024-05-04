@@ -1,0 +1,61 @@
+Index: app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.team3.wellness_buddy\n\n\nimport android.content.Context\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.compose.setContent\nimport androidx.compose.runtime.Composable\nimport androidx.navigation.compose.NavHost\nimport androidx.navigation.compose.composable\nimport androidx.navigation.compose.rememberNavController\nimport com.team3.wellness_buddy.register.SignUpPage\n\nimport com.team3.wellness_buddy.usersList.UsersListPage\nimport com.google.firebase.FirebaseApp\nimport com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage\nimport com.team3.wellness_buddy.categoryexplorer.Show\nimport com.team3.wellness_buddy.login.Login\n\nobject UserPreferences {\n    private const val PREF_NAME = \"user_preferences\"\n    private const val KEY_FIRST_NAME = \"first_name\"\n    private const val KEY_LAST_NAME = \"last_name\"\n    private const val KEY_EMAIL = \"email\"\n\n    fun saveUserInfo(context: Context, firstName: String?, lastName: String?, email: String) {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        val editor = sharedPreferences.edit()\n        editor.putString(KEY_FIRST_NAME, firstName)\n        editor.putString(KEY_LAST_NAME, lastName)\n        editor.putString(KEY_EMAIL, email)\n        editor.apply()\n    }\n\n    fun getFirstName(context: Context): String? {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        return sharedPreferences.getString(KEY_FIRST_NAME, null)\n    }\n\n    fun getLastName(context: Context): String? {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        return sharedPreferences.getString(KEY_LAST_NAME, null)\n    }\n\n    fun getEmail(context: Context): String? {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        return sharedPreferences.getString(KEY_EMAIL, null)\n    }\n}\n\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContent {\n            Show()\n            WellnessBuddyApp()\n            FirebaseApp.initializeApp(this)\n        }\n    }\n}\n\n\n\n@Composable\nfun WellnessBuddyApp() {\n    val navController = rememberNavController()\n\n    NavHost(navController = navController, startDestination = \"category_explorer\") {\n        composable(\"login\") { Login(navController) }\n        composable(\"home\") { UsersListPage(navController) }\n        composable(\"signUp\") { SignUpPage(navController) }\n        composable(\"category_explorer\"){\n            CategorySelectionPage()\n        }\n    }\n\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
+@@ -9,14 +9,18 @@
+ import androidx.navigation.compose.NavHost
+ import androidx.navigation.compose.composable
+ import androidx.navigation.compose.rememberNavController
++import com.google.firebase.Firebase
+ import com.team3.wellness_buddy.register.SignUpPage
+ 
+ import com.team3.wellness_buddy.usersList.UsersListPage
+ import com.google.firebase.FirebaseApp
++import com.google.firebase.database.database
++import com.google.firebase.initialize
+ import com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage
+ import com.team3.wellness_buddy.categoryexplorer.Show
+ import com.team3.wellness_buddy.login.Login
+ 
++
+ object UserPreferences {
+     private const val PREF_NAME = "user_preferences"
+     private const val KEY_FIRST_NAME = "first_name"
+@@ -57,6 +61,7 @@
+             WellnessBuddyApp()
+             FirebaseApp.initializeApp(this)
+         }
++
+     }
+ }
+ 
+@@ -66,7 +71,7 @@
+ fun WellnessBuddyApp() {
+     val navController = rememberNavController()
+ 
+-    NavHost(navController = navController, startDestination = "category_explorer") {
++    NavHost(navController = navController, startDestination = "login") {
+         composable("login") { Login(navController) }
+         composable("home") { UsersListPage(navController) }
+         composable("signUp") { SignUpPage(navController) }
+Index: .gradle/config.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu May 02 18:53:58 EDT 2024\njava.home=C\\:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/.gradle/config.properties b/.gradle/config.properties
+--- a/.gradle/config.properties	
++++ b/.gradle/config.properties	
+@@ -1,2 +1,2 @@
+-#Thu May 02 18:53:58 EDT 2024
+-java.home=C\:\\Program Files\\Android\\Android Studio\\jbr
++#Fri May 03 15:28:00 EDT 2024
++java.home=/Applications/Android Studio.app/Contents/jbr/Contents/Home

@@ -1,0 +1,1383 @@
+Index: app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.team3.wellness_buddy\n\n\nimport android.content.Context\nimport android.os.Bundle\nimport androidx.activity.ComponentActivity\nimport androidx.activity.compose.setContent\nimport androidx.compose.runtime.Composable\nimport androidx.navigation.compose.NavHost\nimport androidx.navigation.compose.composable\nimport androidx.navigation.compose.rememberNavController\nimport com.team3.wellness_buddy.register.SignUpPage\n\nimport com.team3.wellness_buddy.usersList.UsersListPage\nimport com.google.firebase.FirebaseApp\nimport com.team3.wellness_buddy.categoryexplorer.CategorySelectionPage\nimport com.team3.wellness_buddy.categoryexplorer.Show\nimport com.team3.wellness_buddy.login.Login\n\nobject UserPreferences {\n    private const val PREF_NAME = \"user_preferences\"\n    private const val KEY_FIRST_NAME = \"first_name\"\n    private const val KEY_LAST_NAME = \"last_name\"\n    private const val KEY_EMAIL = \"email\"\n\n    fun saveUserInfo(context: Context, firstName: String?, lastName: String?, email: String) {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        val editor = sharedPreferences.edit()\n        editor.putString(KEY_FIRST_NAME, firstName)\n        editor.putString(KEY_LAST_NAME, lastName)\n        editor.putString(KEY_EMAIL, email)\n        editor.apply()\n    }\n\n    fun getFirstName(context: Context): String? {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        return sharedPreferences.getString(KEY_FIRST_NAME, null)\n    }\n\n    fun getLastName(context: Context): String? {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        return sharedPreferences.getString(KEY_LAST_NAME, null)\n    }\n\n    fun getEmail(context: Context): String? {\n        val sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)\n        return sharedPreferences.getString(KEY_EMAIL, null)\n    }\n}\n\n\nclass MainActivity : ComponentActivity() {\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContent {\n            Show()\n            WellnessBuddyApp()\n            FirebaseApp.initializeApp(this)\n        }\n    }\n}\n\n\n\n@Composable\nfun WellnessBuddyApp() {\n    val navController = rememberNavController()\n\n    NavHost(navController = navController, startDestination = \"login\") {\n        composable(\"login\") { Login(navController) }\n        composable(\"home\") { UsersListPage(navController) }\n        composable(\"signUp\") { SignUpPage(navController) }\n        composable(\"category_explorer\"){\n            CategorySelectionPage()\n        }\n    }\n\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/MainActivity.kt	
+@@ -66,7 +66,7 @@
+ fun WellnessBuddyApp() {
+     val navController = rememberNavController()
+ 
+-    NavHost(navController = navController, startDestination = "login") {
++    NavHost(navController = navController, startDestination = "home") {
+         composable("login") { Login(navController) }
+         composable("home") { UsersListPage(navController) }
+         composable("signUp") { SignUpPage(navController) }
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/shelved.patch	
++++ /dev/null	
+@@ -1,54 +0,0 @@
+-Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_49 AM_[Changes]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_49 AM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_49 AM_[Changes]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_49 AM_[Changes]/shelved.patch	
+-+++ /dev/null	
+-@@ -1,17 +0,0 @@
+--Index: .idea/gradle.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"gradleJvm\" value=\"#GRADLE_LOCAL_JAVA_HOME\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n          </set>\n        </option>\n        <option name=\"resolveExternalAnnotations\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+----- a/.idea/gradle.xml	(revision da159bb536cd9241dd3413d4aeaa11701ce391dd)
+--+++ b/.idea/gradle.xml	(date 1713332214800)
+--@@ -1,5 +1,6 @@
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <project version="4">
+--+  <component name="GradleMigrationSettings" migrationVersion="1" />
+--   <component name="GradleSettings">
+--     <option name="linkedExternalProjectsSettings">
+--       <GradleProjectSettings>
+-Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_50 AM_[Changes]/shelved.patch
+-===================================================================
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_50 AM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_50 AM_[Changes]/shelved.patch
+-deleted file mode 100644
+---- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_50 AM_[Changes]/shelved.patch	
+-+++ /dev/null	
+-@@ -1,17 +0,0 @@
+--Index: .idea/gradle.xml
+--IDEA additional info:
+--Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+--<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"gradleJvm\" value=\"#GRADLE_LOCAL_JAVA_HOME\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n          </set>\n        </option>\n        <option name=\"resolveExternalAnnotations\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+--Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+--<+>UTF-8
+--===================================================================
+--diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+----- a/.idea/gradle.xml	(revision 7efda868714c8734c8e79df2f850478e9b7405c3)
+--+++ b/.idea/gradle.xml	(date 1713332987947)
+--@@ -1,5 +1,6 @@
+-- <?xml version="1.0" encoding="UTF-8"?>
+-- <project version="4">
+--+  <component name="GradleMigrationSettings" migrationVersion="1" />
+--   <component name="GradleSettings">
+--     <option name="linkedExternalProjectsSettings">
+--       <GradleProjectSettings>
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_51 AM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_51 AM_[Changes]/shelved.patch
+-deleted file mode 100644
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_2_01 AM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_2_01 AM_[Changes]/shelved.patch
+-deleted file mode 100644
+-diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_51 AM_[Changes]1/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_17_24,_1_51 AM_[Changes]1/shelved.patch
+-deleted file mode 100644
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_29PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_29PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_29PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_29PM__Changes_.xml	
++++ /dev/null	
+@@ -1,179 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]" date="1714159744505" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/26/24, 3:29 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxLifecycleLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/dependencies-accessors.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/dependencies-accessors.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/dependencies-accessors.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$PluginAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$PluginAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxCoreLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxCoreLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxCoreLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxUiLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$BundleAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$BundleAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$BundleAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$BundleAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxUiLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiToolingLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiToolingLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxUiToolingLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxEspressoLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/executionHistory.bin" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/executionHistory.bin" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/executionHistory.bin" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$VersionAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$VersionAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxEspressoLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxEspressoLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxEspressoLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleRuntimeLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxLifecycleRuntimeLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxLifecycleRuntimeLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/fileHashes.bin" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/fileHashes.bin" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/fileHashes.bin" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxActivityLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxActivityLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxActivityLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+-    <option name="AFTER_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/buildOutputCleanup.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$VersionAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$VersionAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/file-system.probe" />
+-    <option name="AFTER_PATH" value=".gradle/file-system.probe" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/file-system.probe" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxComposeLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxComposeLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxComposeLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxLifecycleLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$PluginAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$PluginAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxCoreLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxCoreLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxCoreLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiToolingLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiToolingLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxUiToolingLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/fileHashes.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/fileHashes.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/fileHashes.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleRuntimeLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxLifecycleRuntimeLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxLifecycleRuntimeLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiTestLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxUiTestLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxUiTestLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiTestLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibs$AndroidxUiTestLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibs$AndroidxUiTestLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxComposeLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxComposeLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxComposeLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxActivityLibraryAccessors.class" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/classes/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock$AndroidxActivityLibraryAccessors.class" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/LibrariesForLibsInPluginsBlock$AndroidxActivityLibraryAccessors.class" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/executionHistory/executionHistory.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/executionHistory/executionHistory.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/executionHistory.lock" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibs.java
+===================================================================
+diff --git a/.gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibs.java b/.gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibs.java
+deleted file mode 100644
+--- a/.gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibs.java	
++++ /dev/null	
+@@ -1,409 +0,0 @@
+-package org.gradle.accessors.dm;
+-
+-import org.gradle.api.NonNullApi;
+-import org.gradle.api.artifacts.MinimalExternalModuleDependency;
+-import org.gradle.plugin.use.PluginDependency;
+-import org.gradle.api.artifacts.ExternalModuleDependencyBundle;
+-import org.gradle.api.artifacts.MutableVersionConstraint;
+-import org.gradle.api.provider.Provider;
+-import org.gradle.api.model.ObjectFactory;
+-import org.gradle.api.provider.ProviderFactory;
+-import org.gradle.api.internal.catalog.AbstractExternalDependencyFactory;
+-import org.gradle.api.internal.catalog.DefaultVersionCatalog;
+-import java.util.Map;
+-import org.gradle.api.internal.attributes.ImmutableAttributesFactory;
+-import org.gradle.api.internal.artifacts.dsl.CapabilityNotationParser;
+-import javax.inject.Inject;
+-
+-/**
+- * A catalog of dependencies accessible via the `libs` extension.
+- */
+-@NonNullApi
+-public class LibrariesForLibs extends AbstractExternalDependencyFactory {
+-
+-    private final AbstractExternalDependencyFactory owner = this;
+-    private final AndroidxLibraryAccessors laccForAndroidxLibraryAccessors = new AndroidxLibraryAccessors(owner);
+-    private final VersionAccessors vaccForVersionAccessors = new VersionAccessors(providers, config);
+-    private final BundleAccessors baccForBundleAccessors = new BundleAccessors(objects, providers, config, attributesFactory, capabilityNotationParser);
+-    private final PluginAccessors paccForPluginAccessors = new PluginAccessors(providers, config);
+-
+-    @Inject
+-    public LibrariesForLibs(DefaultVersionCatalog config, ProviderFactory providers, ObjectFactory objects, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) {
+-        super(config, providers, objects, attributesFactory, capabilityNotationParser);
+-    }
+-
+-        /**
+-         * Creates a dependency provider for junit (junit:junit)
+-         * This dependency was declared in catalog libs.versions.toml
+-         */
+-        public Provider<MinimalExternalModuleDependency> getJunit() {
+-            return create("junit");
+-    }
+-
+-    /**
+-     * Returns the group of libraries at androidx
+-     */
+-    public AndroidxLibraryAccessors getAndroidx() {
+-        return laccForAndroidxLibraryAccessors;
+-    }
+-
+-    /**
+-     * Returns the group of versions at versions
+-     */
+-    public VersionAccessors getVersions() {
+-        return vaccForVersionAccessors;
+-    }
+-
+-    /**
+-     * Returns the group of bundles at bundles
+-     */
+-    public BundleAccessors getBundles() {
+-        return baccForBundleAccessors;
+-    }
+-
+-    /**
+-     * Returns the group of plugins at plugins
+-     */
+-    public PluginAccessors getPlugins() {
+-        return paccForPluginAccessors;
+-    }
+-
+-    public static class AndroidxLibraryAccessors extends SubDependencyFactory {
+-        private final AndroidxActivityLibraryAccessors laccForAndroidxActivityLibraryAccessors = new AndroidxActivityLibraryAccessors(owner);
+-        private final AndroidxComposeLibraryAccessors laccForAndroidxComposeLibraryAccessors = new AndroidxComposeLibraryAccessors(owner);
+-        private final AndroidxCoreLibraryAccessors laccForAndroidxCoreLibraryAccessors = new AndroidxCoreLibraryAccessors(owner);
+-        private final AndroidxEspressoLibraryAccessors laccForAndroidxEspressoLibraryAccessors = new AndroidxEspressoLibraryAccessors(owner);
+-        private final AndroidxLifecycleLibraryAccessors laccForAndroidxLifecycleLibraryAccessors = new AndroidxLifecycleLibraryAccessors(owner);
+-        private final AndroidxUiLibraryAccessors laccForAndroidxUiLibraryAccessors = new AndroidxUiLibraryAccessors(owner);
+-
+-        public AndroidxLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for junit (androidx.test.ext:junit)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getJunit() {
+-                return create("androidx.junit");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for material3 (androidx.compose.material3:material3)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getMaterial3() {
+-                return create("androidx.material3");
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.activity
+-         */
+-        public AndroidxActivityLibraryAccessors getActivity() {
+-            return laccForAndroidxActivityLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.compose
+-         */
+-        public AndroidxComposeLibraryAccessors getCompose() {
+-            return laccForAndroidxComposeLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.core
+-         */
+-        public AndroidxCoreLibraryAccessors getCore() {
+-            return laccForAndroidxCoreLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.espresso
+-         */
+-        public AndroidxEspressoLibraryAccessors getEspresso() {
+-            return laccForAndroidxEspressoLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.lifecycle
+-         */
+-        public AndroidxLifecycleLibraryAccessors getLifecycle() {
+-            return laccForAndroidxLifecycleLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.ui
+-         */
+-        public AndroidxUiLibraryAccessors getUi() {
+-            return laccForAndroidxUiLibraryAccessors;
+-        }
+-
+-    }
+-
+-    public static class AndroidxActivityLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxActivityLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for compose (androidx.activity:activity-compose)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getCompose() {
+-                return create("androidx.activity.compose");
+-        }
+-
+-    }
+-
+-    public static class AndroidxComposeLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxComposeLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for bom (androidx.compose:compose-bom)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getBom() {
+-                return create("androidx.compose.bom");
+-        }
+-
+-    }
+-
+-    public static class AndroidxCoreLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxCoreLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for ktx (androidx.core:core-ktx)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getKtx() {
+-                return create("androidx.core.ktx");
+-        }
+-
+-    }
+-
+-    public static class AndroidxEspressoLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxEspressoLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for core (androidx.test.espresso:espresso-core)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getCore() {
+-                return create("androidx.espresso.core");
+-        }
+-
+-    }
+-
+-    public static class AndroidxLifecycleLibraryAccessors extends SubDependencyFactory {
+-        private final AndroidxLifecycleRuntimeLibraryAccessors laccForAndroidxLifecycleRuntimeLibraryAccessors = new AndroidxLifecycleRuntimeLibraryAccessors(owner);
+-
+-        public AndroidxLifecycleLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-        /**
+-         * Returns the group of libraries at androidx.lifecycle.runtime
+-         */
+-        public AndroidxLifecycleRuntimeLibraryAccessors getRuntime() {
+-            return laccForAndroidxLifecycleRuntimeLibraryAccessors;
+-        }
+-
+-    }
+-
+-    public static class AndroidxLifecycleRuntimeLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxLifecycleRuntimeLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for ktx (androidx.lifecycle:lifecycle-runtime-ktx)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getKtx() {
+-                return create("androidx.lifecycle.runtime.ktx");
+-        }
+-
+-    }
+-
+-    public static class AndroidxUiLibraryAccessors extends SubDependencyFactory implements DependencyNotationSupplier {
+-        private final AndroidxUiTestLibraryAccessors laccForAndroidxUiTestLibraryAccessors = new AndroidxUiTestLibraryAccessors(owner);
+-        private final AndroidxUiToolingLibraryAccessors laccForAndroidxUiToolingLibraryAccessors = new AndroidxUiToolingLibraryAccessors(owner);
+-
+-        public AndroidxUiLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for ui (androidx.compose.ui:ui)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> asProvider() {
+-                return create("androidx.ui");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for graphics (androidx.compose.ui:ui-graphics)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getGraphics() {
+-                return create("androidx.ui.graphics");
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.ui.test
+-         */
+-        public AndroidxUiTestLibraryAccessors getTest() {
+-            return laccForAndroidxUiTestLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.ui.tooling
+-         */
+-        public AndroidxUiToolingLibraryAccessors getTooling() {
+-            return laccForAndroidxUiToolingLibraryAccessors;
+-        }
+-
+-    }
+-
+-    public static class AndroidxUiTestLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxUiTestLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for junit4 (androidx.compose.ui:ui-test-junit4)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getJunit4() {
+-                return create("androidx.ui.test.junit4");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for manifest (androidx.compose.ui:ui-test-manifest)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getManifest() {
+-                return create("androidx.ui.test.manifest");
+-        }
+-
+-    }
+-
+-    public static class AndroidxUiToolingLibraryAccessors extends SubDependencyFactory implements DependencyNotationSupplier {
+-
+-        public AndroidxUiToolingLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for tooling (androidx.compose.ui:ui-tooling)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> asProvider() {
+-                return create("androidx.ui.tooling");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for preview (androidx.compose.ui:ui-tooling-preview)
+-             * This dependency was declared in catalog libs.versions.toml
+-             */
+-            public Provider<MinimalExternalModuleDependency> getPreview() {
+-                return create("androidx.ui.tooling.preview");
+-        }
+-
+-    }
+-
+-    public static class VersionAccessors extends VersionFactory  {
+-
+-        public VersionAccessors(ProviderFactory providers, DefaultVersionCatalog config) { super(providers, config); }
+-
+-            /**
+-             * Returns the version associated to this alias: activityCompose (1.8.2)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getActivityCompose() { return getVersion("activityCompose"); }
+-
+-            /**
+-             * Returns the version associated to this alias: agp (8.3.1)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getAgp() { return getVersion("agp"); }
+-
+-            /**
+-             * Returns the version associated to this alias: composeBom (2023.08.00)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getComposeBom() { return getVersion("composeBom"); }
+-
+-            /**
+-             * Returns the version associated to this alias: coreKtx (1.12.0)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getCoreKtx() { return getVersion("coreKtx"); }
+-
+-            /**
+-             * Returns the version associated to this alias: espressoCore (3.5.1)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getEspressoCore() { return getVersion("espressoCore"); }
+-
+-            /**
+-             * Returns the version associated to this alias: junit (4.13.2)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getJunit() { return getVersion("junit"); }
+-
+-            /**
+-             * Returns the version associated to this alias: junitVersion (1.1.5)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getJunitVersion() { return getVersion("junitVersion"); }
+-
+-            /**
+-             * Returns the version associated to this alias: kotlin (1.9.0)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getKotlin() { return getVersion("kotlin"); }
+-
+-            /**
+-             * Returns the version associated to this alias: lifecycleRuntimeKtx (2.7.0)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getLifecycleRuntimeKtx() { return getVersion("lifecycleRuntimeKtx"); }
+-
+-    }
+-
+-    public static class BundleAccessors extends BundleFactory {
+-
+-        public BundleAccessors(ObjectFactory objects, ProviderFactory providers, DefaultVersionCatalog config, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) { super(objects, providers, config, attributesFactory, capabilityNotationParser); }
+-
+-    }
+-
+-    public static class PluginAccessors extends PluginFactory {
+-
+-        public PluginAccessors(ProviderFactory providers, DefaultVersionCatalog config) { super(providers, config); }
+-
+-            /**
+-             * Creates a plugin provider for androidApplication to the plugin id 'com.android.application'
+-             * This plugin was declared in catalog libs.versions.toml
+-             */
+-            public Provider<PluginDependency> getAndroidApplication() { return createPlugin("androidApplication"); }
+-
+-            /**
+-             * Creates a plugin provider for jetbrainsKotlinAndroid to the plugin id 'org.jetbrains.kotlin.android'
+-             * This plugin was declared in catalog libs.versions.toml
+-             */
+-            public Provider<PluginDependency> getJetbrainsKotlinAndroid() { return createPlugin("jetbrainsKotlinAndroid"); }
+-
+-    }
+-
+-}
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_4_26_24__3_29PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24__3_29PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24__3_29PM__Changes_.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24__3_29PM__Changes_.xml	
++++ /dev/null	
+@@ -1,39 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]" date="1714159774215" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/26/24, 3:29 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/dependencies-accessors.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/dependencies-accessors.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/dependencies-accessors.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/fileHashes.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/fileHashes.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/fileHashes.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/fileHashes.bin" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/fileHashes.bin" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/fileHashes.bin" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/dependencies-accessors/executionHistory.bin" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/dependencies-accessors/executionHistory.bin" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/executionHistory.bin" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+-    <option name="AFTER_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/buildOutputCleanup.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/file-system.probe" />
+-    <option name="AFTER_PATH" value=".gradle/file-system.probe" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/file-system.probe" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/executionHistory/executionHistory.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/executionHistory/executionHistory.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/executionHistory.lock" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_25PM__Changes_1.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_25PM__Changes_1.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_25PM__Changes_1.xml
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24__3_25PM__Changes_1.xml	
++++ /dev/null	
+@@ -1,29 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1" date="1714159555679" recycled="true" deleted="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/26/24, 3:25 PM [Changes]" />
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/fileHashes.bin" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/fileHashes.bin" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/fileHashes.bin" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/fileHashes.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/fileHashes.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/fileHashes.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/executionHistory/executionHistory.lock" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/executionHistory/executionHistory.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/executionHistory.lock" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/8.4/fileHashes/resourceHashesCache.bin" />
+-    <option name="AFTER_PATH" value=".gradle/8.4/fileHashes/resourceHashesCache.bin" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/resourceHashesCache.bin" />
+-  </binary>
+-  <binary>
+-    <option name="BEFORE_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+-    <option name="AFTER_PATH" value=".gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_25 PM_[Changes]1/buildOutputCleanup.lock" />
+-  </binary>
+-</changelist>
+\ No newline at end of file
+Index: .gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java
+===================================================================
+diff --git a/.gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java b/.gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java
+deleted file mode 100644
+--- a/.gradle/8.4/dependencies-accessors/98d43d0bc054fdd3850ea83773727fb73542bcc1/sources/org/gradle/accessors/dm/LibrariesForLibsInPluginsBlock.java	
++++ /dev/null	
+@@ -1,528 +0,0 @@
+-package org.gradle.accessors.dm;
+-
+-import org.gradle.api.NonNullApi;
+-import org.gradle.api.artifacts.MinimalExternalModuleDependency;
+-import org.gradle.plugin.use.PluginDependency;
+-import org.gradle.api.artifacts.ExternalModuleDependencyBundle;
+-import org.gradle.api.artifacts.MutableVersionConstraint;
+-import org.gradle.api.provider.Provider;
+-import org.gradle.api.model.ObjectFactory;
+-import org.gradle.api.provider.ProviderFactory;
+-import org.gradle.api.internal.catalog.AbstractExternalDependencyFactory;
+-import org.gradle.api.internal.catalog.DefaultVersionCatalog;
+-import java.util.Map;
+-import org.gradle.api.internal.attributes.ImmutableAttributesFactory;
+-import org.gradle.api.internal.artifacts.dsl.CapabilityNotationParser;
+-import javax.inject.Inject;
+-
+-/**
+- * A catalog of dependencies accessible via the `libs` extension.
+- */
+-@NonNullApi
+-public class LibrariesForLibsInPluginsBlock extends AbstractExternalDependencyFactory {
+-
+-    private final AbstractExternalDependencyFactory owner = this;
+-    private final AndroidxLibraryAccessors laccForAndroidxLibraryAccessors = new AndroidxLibraryAccessors(owner);
+-    private final VersionAccessors vaccForVersionAccessors = new VersionAccessors(providers, config);
+-    private final BundleAccessors baccForBundleAccessors = new BundleAccessors(objects, providers, config, attributesFactory, capabilityNotationParser);
+-    private final PluginAccessors paccForPluginAccessors = new PluginAccessors(providers, config);
+-
+-    @Inject
+-    public LibrariesForLibsInPluginsBlock(DefaultVersionCatalog config, ProviderFactory providers, ObjectFactory objects, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) {
+-        super(config, providers, objects, attributesFactory, capabilityNotationParser);
+-    }
+-
+-        /**
+-         * Creates a dependency provider for junit (junit:junit)
+-         * This dependency was declared in catalog libs.versions.toml
+-     * @deprecated Will be removed in Gradle 9.0.
+-         */
+-    @Deprecated
+-        public Provider<MinimalExternalModuleDependency> getJunit() {
+-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return create("junit");
+-    }
+-
+-    /**
+-     * Returns the group of libraries at androidx
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public AndroidxLibraryAccessors getAndroidx() {
+-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-        return laccForAndroidxLibraryAccessors;
+-    }
+-
+-    /**
+-     * Returns the group of versions at versions
+-     */
+-    public VersionAccessors getVersions() {
+-        return vaccForVersionAccessors;
+-    }
+-
+-    /**
+-     * Returns the group of bundles at bundles
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public BundleAccessors getBundles() {
+-        org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-        return baccForBundleAccessors;
+-    }
+-
+-    /**
+-     * Returns the group of plugins at plugins
+-     */
+-    public PluginAccessors getPlugins() {
+-        return paccForPluginAccessors;
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxLibraryAccessors extends SubDependencyFactory {
+-        private final AndroidxActivityLibraryAccessors laccForAndroidxActivityLibraryAccessors = new AndroidxActivityLibraryAccessors(owner);
+-        private final AndroidxComposeLibraryAccessors laccForAndroidxComposeLibraryAccessors = new AndroidxComposeLibraryAccessors(owner);
+-        private final AndroidxCoreLibraryAccessors laccForAndroidxCoreLibraryAccessors = new AndroidxCoreLibraryAccessors(owner);
+-        private final AndroidxEspressoLibraryAccessors laccForAndroidxEspressoLibraryAccessors = new AndroidxEspressoLibraryAccessors(owner);
+-        private final AndroidxLifecycleLibraryAccessors laccForAndroidxLifecycleLibraryAccessors = new AndroidxLifecycleLibraryAccessors(owner);
+-        private final AndroidxUiLibraryAccessors laccForAndroidxUiLibraryAccessors = new AndroidxUiLibraryAccessors(owner);
+-
+-        public AndroidxLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for junit (androidx.test.ext:junit)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getJunit() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.junit");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for material3 (androidx.compose.material3:material3)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getMaterial3() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.material3");
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.activity
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxActivityLibraryAccessors getActivity() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxActivityLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.compose
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxComposeLibraryAccessors getCompose() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxComposeLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.core
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxCoreLibraryAccessors getCore() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxCoreLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.espresso
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxEspressoLibraryAccessors getEspresso() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxEspressoLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.lifecycle
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxLifecycleLibraryAccessors getLifecycle() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxLifecycleLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.ui
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxUiLibraryAccessors getUi() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxUiLibraryAccessors;
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxActivityLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxActivityLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for compose (androidx.activity:activity-compose)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getCompose() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.activity.compose");
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxComposeLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxComposeLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for bom (androidx.compose:compose-bom)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getBom() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.compose.bom");
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxCoreLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxCoreLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for ktx (androidx.core:core-ktx)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getKtx() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.core.ktx");
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxEspressoLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxEspressoLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for core (androidx.test.espresso:espresso-core)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getCore() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.espresso.core");
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxLifecycleLibraryAccessors extends SubDependencyFactory {
+-        private final AndroidxLifecycleRuntimeLibraryAccessors laccForAndroidxLifecycleRuntimeLibraryAccessors = new AndroidxLifecycleRuntimeLibraryAccessors(owner);
+-
+-        public AndroidxLifecycleLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-        /**
+-         * Returns the group of libraries at androidx.lifecycle.runtime
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxLifecycleRuntimeLibraryAccessors getRuntime() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxLifecycleRuntimeLibraryAccessors;
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxLifecycleRuntimeLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxLifecycleRuntimeLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for ktx (androidx.lifecycle:lifecycle-runtime-ktx)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getKtx() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.lifecycle.runtime.ktx");
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxUiLibraryAccessors extends SubDependencyFactory implements DependencyNotationSupplier {
+-        private final AndroidxUiTestLibraryAccessors laccForAndroidxUiTestLibraryAccessors = new AndroidxUiTestLibraryAccessors(owner);
+-        private final AndroidxUiToolingLibraryAccessors laccForAndroidxUiToolingLibraryAccessors = new AndroidxUiToolingLibraryAccessors(owner);
+-
+-        public AndroidxUiLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for ui (androidx.compose.ui:ui)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> asProvider() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.ui");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for graphics (androidx.compose.ui:ui-graphics)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getGraphics() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.ui.graphics");
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.ui.test
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxUiTestLibraryAccessors getTest() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxUiTestLibraryAccessors;
+-        }
+-
+-        /**
+-         * Returns the group of libraries at androidx.ui.tooling
+-         * @deprecated Will be removed in Gradle 9.0.
+-         */
+-        @Deprecated
+-        public AndroidxUiToolingLibraryAccessors getTooling() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-            return laccForAndroidxUiToolingLibraryAccessors;
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxUiTestLibraryAccessors extends SubDependencyFactory {
+-
+-        public AndroidxUiTestLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for junit4 (androidx.compose.ui:ui-test-junit4)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getJunit4() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.ui.test.junit4");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for manifest (androidx.compose.ui:ui-test-manifest)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getManifest() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.ui.test.manifest");
+-        }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class AndroidxUiToolingLibraryAccessors extends SubDependencyFactory implements DependencyNotationSupplier {
+-
+-        public AndroidxUiToolingLibraryAccessors(AbstractExternalDependencyFactory owner) { super(owner); }
+-
+-            /**
+-             * Creates a dependency provider for tooling (androidx.compose.ui:ui-tooling)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> asProvider() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.ui.tooling");
+-        }
+-
+-            /**
+-             * Creates a dependency provider for preview (androidx.compose.ui:ui-tooling-preview)
+-             * This dependency was declared in catalog libs.versions.toml
+-         * @deprecated Will be removed in Gradle 9.0.
+-             */
+-        @Deprecated
+-            public Provider<MinimalExternalModuleDependency> getPreview() {
+-            org.gradle.internal.deprecation.DeprecationLogger.deprecateBehaviour("Accessing libraries or bundles from version catalogs in the plugins block.").withAdvice("Only use versions or plugins from catalogs in the plugins block.").willBeRemovedInGradle9().withUpgradeGuideSection(8, "kotlin_dsl_deprecated_catalogs_plugins_block").nagUser();
+-                return create("androidx.ui.tooling.preview");
+-        }
+-
+-    }
+-
+-    public static class VersionAccessors extends VersionFactory  {
+-
+-        public VersionAccessors(ProviderFactory providers, DefaultVersionCatalog config) { super(providers, config); }
+-
+-            /**
+-             * Returns the version associated to this alias: activityCompose (1.8.2)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getActivityCompose() { return getVersion("activityCompose"); }
+-
+-            /**
+-             * Returns the version associated to this alias: agp (8.3.1)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getAgp() { return getVersion("agp"); }
+-
+-            /**
+-             * Returns the version associated to this alias: composeBom (2023.08.00)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getComposeBom() { return getVersion("composeBom"); }
+-
+-            /**
+-             * Returns the version associated to this alias: coreKtx (1.12.0)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getCoreKtx() { return getVersion("coreKtx"); }
+-
+-            /**
+-             * Returns the version associated to this alias: espressoCore (3.5.1)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getEspressoCore() { return getVersion("espressoCore"); }
+-
+-            /**
+-             * Returns the version associated to this alias: junit (4.13.2)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getJunit() { return getVersion("junit"); }
+-
+-            /**
+-             * Returns the version associated to this alias: junitVersion (1.1.5)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getJunitVersion() { return getVersion("junitVersion"); }
+-
+-            /**
+-             * Returns the version associated to this alias: kotlin (1.9.0)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getKotlin() { return getVersion("kotlin"); }
+-
+-            /**
+-             * Returns the version associated to this alias: lifecycleRuntimeKtx (2.7.0)
+-             * If the version is a rich version and that its not expressible as a
+-             * single version string, then an empty string is returned.
+-             * This version was declared in catalog libs.versions.toml
+-             */
+-            public Provider<String> getLifecycleRuntimeKtx() { return getVersion("lifecycleRuntimeKtx"); }
+-
+-    }
+-
+-    /**
+-     * @deprecated Will be removed in Gradle 9.0.
+-     */
+-    @Deprecated
+-    public static class BundleAccessors extends BundleFactory {
+-
+-        public BundleAccessors(ObjectFactory objects, ProviderFactory providers, DefaultVersionCatalog config, ImmutableAttributesFactory attributesFactory, CapabilityNotationParser capabilityNotationParser) { super(objects, providers, config, attributesFactory, capabilityNotationParser); }
+-
+-    }
+-
+-    public static class PluginAccessors extends PluginFactory {
+-
+-        public PluginAccessors(ProviderFactory providers, DefaultVersionCatalog config) { super(providers, config); }
+-
+-            /**
+-             * Creates a plugin provider for androidApplication to the plugin id 'com.android.application'
+-             * This plugin was declared in catalog libs.versions.toml
+-             */
+-            public Provider<PluginDependency> getAndroidApplication() { return createPlugin("androidApplication"); }
+-
+-            /**
+-             * Creates a plugin provider for jetbrainsKotlinAndroid to the plugin id 'org.jetbrains.kotlin.android'
+-             * This plugin was declared in catalog libs.versions.toml
+-             */
+-            public Provider<PluginDependency> getJetbrainsKotlinAndroid() { return createPlugin("jetbrainsKotlinAndroid"); }
+-
+-    }
+-
+-}
+Index: app/src/main/java/com/team3/wellness_buddy/usersList/UserListElement.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.team3.wellness_buddy.usersList\n\nimport User\nimport android.annotation.SuppressLint\nimport androidx.compose.foundation.Image\nimport androidx.compose.foundation.border\nimport androidx.compose.foundation.layout.Box\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.Row\nimport androidx.compose.foundation.layout.fillMaxSize\nimport androidx.compose.foundation.layout.fillMaxWidth\nimport androidx.compose.foundation.layout.height\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.foundation.layout.size\nimport androidx.compose.foundation.shape.CircleShape\nimport androidx.compose.foundation.shape.RoundedCornerShape\nimport androidx.compose.material.MaterialTheme\nimport androidx.compose.material.Text\nimport androidx.compose.material.icons.Icons\nimport androidx.compose.material.icons.filled.LocationOn\nimport androidx.compose.runtime.Composable\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.draw.clip\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.res.painterResource\nimport androidx.compose.ui.text.style.TextAlign\nimport androidx.compose.ui.unit.Dp\nimport androidx.compose.ui.unit.dp\nimport com.team3.wellness_buddy.R\nimport com.team3.wellness_buddy.ui.theme.Custom_Colors\n\n\n@SuppressLint(\"ResourceType\")\n@Composable\nfun UserListElement(user: User) {\n    val height = 60.dp\n    Box(\n        modifier = Modifier\n            .border(1.dp, Custom_Colors.Primary_bg_lite, RoundedCornerShape(50.dp))\n            .fillMaxWidth(0.95f)\n            .padding(5.dp)\n            .padding(start = 0.dp)\n            .height(height)\n    ) {\n        Row(\n            modifier = Modifier\n                .fillMaxSize()\n                .padding(end = 20.dp),\n            verticalAlignment = Alignment.CenterVertically\n        ) {\n            // Left: User profile picture\n            Image(\n                painter = painterResource(id = R.raw.wellness_buddy_bg_image), // Replace with your image resource\n                contentDescription = \"User profile picture\",\n                modifier = Modifier\n                    .size(height)\n                    .clip(CircleShape)\n            )\n\n            // Center: Name and description\n            Column(\n                modifier = Modifier\n                    .weight(1f)\n                    .padding(start = 8.dp)\n            ) {\n                Text(\n                    text = \"${user.firstName} ${user.lastName}\",\n                    style = MaterialTheme.typography.subtitle2\n                )\n                Text(\n                    text = user.category.orEmpty(),\n                    style = MaterialTheme.typography.overline,\n                    textAlign = TextAlign.Start\n                )\n            }\n\n            // Right: Favorite icon\n            Image(\n                imageVector = Icons.Default.LocationOn,\n                contentDescription = \"Location\",\n                modifier = Modifier.size(24.dp)\n            )\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/usersList/UserListElement.kt b/app/src/main/java/com/team3/wellness_buddy/usersList/UserListElement.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/usersList/UserListElement.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/usersList/UserListElement.kt	
+@@ -1,6 +1,6 @@
+ package com.team3.wellness_buddy.usersList
+ 
+-import User
++
+ import android.annotation.SuppressLint
+ import androidx.compose.foundation.Image
+ import androidx.compose.foundation.border
+Index: app/src/main/java/com/team3/wellness_buddy/usersList/UserListContent.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.team3.wellness_buddy.usersList\n\nimport User\nimport androidx.compose.foundation.background\nimport androidx.compose.foundation.layout.Box\nimport androidx.compose.foundation.layout.Column\nimport androidx.compose.foundation.layout.PaddingValues\nimport androidx.compose.foundation.layout.Spacer\nimport androidx.compose.foundation.layout.fillMaxSize\nimport androidx.compose.foundation.layout.height\nimport androidx.compose.foundation.layout.imePadding\nimport androidx.compose.foundation.layout.navigationBarsPadding\nimport androidx.compose.foundation.layout.padding\nimport androidx.compose.foundation.rememberScrollState\nimport androidx.compose.foundation.verticalScroll\nimport androidx.compose.runtime.Composable\nimport androidx.compose.ui.Alignment\nimport androidx.compose.ui.Modifier\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.platform.LocalConfiguration\nimport androidx.compose.ui.unit.dp\nimport com.team3.wellness_buddy.helpers.getWindowToolBarHeight\n@Composable\nfun UserListContent(userList: List<User>, paddingValues: PaddingValues) {\n    val scrollState = rememberScrollState()\n    Column(\n        modifier = Modifier\n            .padding(paddingValues)\n            .imePadding()\n            .fillMaxSize()\n            .verticalScroll(scrollState),\n        horizontalAlignment = Alignment.CenterHorizontally\n    ) {\n        Spacer(modifier = Modifier.height(10.dp))\n        userList.forEach { user ->\n            UserListElement(user = user)\n            Spacer(modifier = Modifier.height(10.dp))\n        }\n        Spacer(modifier = Modifier.height(65.dp))\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/usersList/UserListContent.kt b/app/src/main/java/com/team3/wellness_buddy/usersList/UserListContent.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/usersList/UserListContent.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/usersList/UserListContent.kt	
+@@ -1,6 +1,6 @@
+ package com.team3.wellness_buddy.usersList
+ 
+-import User
++
+ import androidx.compose.foundation.background
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.Column
+Index: .idea/deploymentTargetDropDown.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"deploymentTargetDropDown\">\n    <value>\n      <entry key=\"app\">\n        <State>\n          <targetSelectedWithDropDown>\n            <Target>\n              <type value=\"QUICK_BOOT_TARGET\" />\n              <deviceKey>\n                <Key>\n                  <type value=\"VIRTUAL_DEVICE_PATH\" />\n                  <value value=\"$USER_HOME$/.android/avd/Pixel_3a_API_34_extension_level_7_arm64-v8a.avd\" />\n                </Key>\n              </deviceKey>\n            </Target>\n          </targetSelectedWithDropDown>\n          <timeTargetWasSelectedWithDropDown value=\"2024-04-26T19:31:57.785765Z\" />\n        </State>\n      </entry>\n    </value>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/deploymentTargetDropDown.xml b/.idea/deploymentTargetDropDown.xml
+--- a/.idea/deploymentTargetDropDown.xml	
++++ b/.idea/deploymentTargetDropDown.xml	
+@@ -10,12 +10,12 @@
+               <deviceKey>
+                 <Key>
+                   <type value="VIRTUAL_DEVICE_PATH" />
+-                  <value value="$USER_HOME$/.android/avd/Pixel_3a_API_34_extension_level_7_arm64-v8a.avd" />
++                  <value value="$USER_HOME$/.android/avd/Medium_Phone_API_28.avd" />
+                 </Key>
+               </deviceKey>
+             </Target>
+           </targetSelectedWithDropDown>
+-          <timeTargetWasSelectedWithDropDown value="2024-04-26T19:31:57.785765Z" />
++          <timeTargetWasSelectedWithDropDown value="2024-05-03T19:36:11.304529Z" />
+         </State>
+       </entry>
+     </value>
+Index: app/src/main/java/com/team3/wellness_buddy/usersList/DataClasses.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>data class User(\n    val firstName: String = \"\",\n    val lastName: String = \"\",\n    val gender: String = \"\",\n    val age: String = \"\",\n    val email: String = \"\",\n    val bio: String = \"\",\n    val street: String = \"\",\n    val city: String = \"\",\n    val zipCode: String = \"\",\n    val state: String = \"\",\n    val country: String = \"\",\n    val role: String = \"\",\n    val level: String? = \"\",\n    val category:String? = \"\"\n)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/team3/wellness_buddy/usersList/DataClasses.kt b/app/src/main/java/com/team3/wellness_buddy/usersList/DataClasses.kt
+--- a/app/src/main/java/com/team3/wellness_buddy/usersList/DataClasses.kt	
++++ b/app/src/main/java/com/team3/wellness_buddy/usersList/DataClasses.kt	
+@@ -1,3 +1,5 @@
++package com.team3.wellness_buddy.usersList
++
+ data class User(
+     val firstName: String = "",
+     val lastName: String = "",
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_26_24,_3_29 PM_[Changes]/shelved.patch
+deleted file mode 100644
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_4_26_24,_3_29 PM_[Changes]/shelved.patch
+deleted file mode 100644
